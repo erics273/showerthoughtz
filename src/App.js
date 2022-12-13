@@ -1,8 +1,8 @@
 import { Switch, Route } from "react-router-dom";
 
-import Home from "./components/home/Home";
-import Feed from "./components/feed/Feed";
-import NotFound from "./components/notFound/NotFound";
+import Home from "./pages/home/Home";
+import Feed from "./pages/feed/Feed";
+import NotFound from "./pages/notFound/NotFound";
 
 function App() {
   return (

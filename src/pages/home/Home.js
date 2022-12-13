@@ -1,5 +1,5 @@
-import Header from "../header/Header";
-import Login from "../login/Login";
+import Header from "../../components/header/Header";
+import Login from "../../components/login/Login";
 
 function Home(props) {
   return (

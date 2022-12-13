@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import mustBeAuthenticated from "../../redux/hoc/mustBeAuthenticated";
-import Header from "../header/Header";
+import Header from "../../components/header/Header";
 
 class Feed extends Component {
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class APIService {
 
-    constructor(url = 'https://socialnetworklite.herokuapp.com', client = axios){
+    constructor(url = process.env.REACT_APP_API_URL, client = axios){
         this.url = url;
         this.client = client;
 }
