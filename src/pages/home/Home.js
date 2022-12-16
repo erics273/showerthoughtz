@@ -8,6 +8,7 @@ function Home(props) {
         <Header/>
         <Login/>
         <Registration/>
+        
     </div>
   );
 }

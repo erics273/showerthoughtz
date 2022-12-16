@@ -1,7 +1,11 @@
+
+
+
 function  Registration () {
     return (  
         <div className="Registration">
-         <button onclick="">Register, you bitch</button>
+         
+         This is a registration page 
         
 
 

@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Feed from "./pages/feed/Feed";
 import NotFound from "./pages/notFound/NotFound";
+import Registration from "./pages/registration/Registration";
 
 function App() {
   return (
@@ -18,7 +19,11 @@ function App() {
           component={Feed}
         />
         <Route
-          path="*"
+          path="/Register"
+          component={Registration}
+        />
+        <Route
+          path=""
           component={NotFound}
         />
       </Switch>

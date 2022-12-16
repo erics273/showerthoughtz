@@ -10,6 +10,7 @@ import { bindActionCreators } from "redux";
 import APIService from "../../apiService";
 import { Redirect, withRouter } from "react-router-dom";
 
+
 class Login extends Component {
 
     state = {  
@@ -28,6 +29,8 @@ class Login extends Component {
         formData[event.target.id] = event.target.value;
         this.setState({formData});
     }
+
+    
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -73,6 +76,12 @@ class Login extends Component {
                     <Button variant="primary" type="submit">
                         Submit
                     </Button>
+                    <Button onChange={""} variant="primary" type="submit">
+                       Register!!!!
+                    </Button>
+                   
+
+                    
                 </Form>
             </div>
         )
