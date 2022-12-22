@@ -1,12 +1,15 @@
+import Header from "../../components/header/Header";
+import RegisterForm from "../../components/registerForm/RegisterForm";
 
 
 
-function  Registration () {
-    return (  
+function Registration() {
+    return (
         <div className="Registration">
-         
-         This is a registration page 
-        
+            <Header/>
+            <RegisterForm/>
+
+
 
 
         </div>

@@ -4,6 +4,8 @@ import Home from "./pages/home/Home";
 import Feed from "./pages/feed/Feed";
 import NotFound from "./pages/notFound/NotFound";
 import Registration from "./pages/registration/Registration";
+import Post from "./pages/post/Post";
+
 
 function App() {
   return (
@@ -19,11 +21,15 @@ function App() {
           component={Feed}
         />
         <Route
-          path="/Register"
+          path="/register"
           component={Registration}
         />
         <Route
-          path=""
+          path="/post"
+          component={Post}
+        />
+        <Route
+          path="*"
           component={NotFound}
         />
       </Switch>

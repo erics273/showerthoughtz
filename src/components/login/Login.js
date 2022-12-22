@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -8,12 +8,12 @@ import * as authActions from "../../redux/actions/auth";
 import { bindActionCreators } from "redux";
 
 import APIService from "../../apiService";
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect, withRouter, Link } from "react-router-dom";
 
 
 class Login extends Component {
 
-    state = {  
+    state = {
         errorMessage: null,
         success: false,
         formData: {
@@ -25,12 +25,12 @@ class Login extends Component {
     client = new APIService();
 
     handleChange = (event) => {
-        let formData = {...this.state.formData};
+        let formData = { ...this.state.formData };
         formData[event.target.id] = event.target.value;
-        this.setState({formData});
+        this.setState({ formData });
     }
 
-    
+
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -43,18 +43,18 @@ class Login extends Component {
                 })
             );
             this.props.actions.login(response.data)
-            this.setState({success: true})
-          })
-          .catch((error) => {
-            // handle error
-            this.setState({errorMessage: error.response.data.message})
-          })
+            this.setState({ success: true })
+        })
+            .catch((error) => {
+                // handle error
+                this.setState({ errorMessage: error.response.data.message })
+            })
     }
 
     render() {
-        if(this.state.success){
+        if (this.state.success) {
             const params = new URLSearchParams(this.props.location.search);
-            const redirect = params.get('redirect'); 
+            const redirect = params.get('redirect');
             return <Redirect to={(redirect) ? redirect : "/feed"} />
         }
         return (
@@ -76,13 +76,14 @@ class Login extends Component {
                     <Button variant="primary" type="submit">
                         Submit
                     </Button>
-                    <Button onChange={""} variant="primary" type="submit">
-                       Register!!!!
+                    <Button as={Link} to="/register" variant="primary">
+                        Register!!!!
                     </Button>
-                   
 
-                    
+
                 </Form>
+
+
             </div>
         )
     }
