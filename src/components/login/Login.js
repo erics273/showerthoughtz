@@ -62,7 +62,7 @@ class Login extends Component {
 
                 {this.state.errorMessage && <Alert variant="danger">{this.state.errorMessage}</Alert>}
 
-                <h2 className="text-center" >Welcome to Social Network Lite</h2>
+                <h2 className="text-center" >ShowerThoughtz (another social media page)</h2>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="username">
                         <Form.Label>Username:</Form.Label>

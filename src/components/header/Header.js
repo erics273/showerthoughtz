@@ -3,6 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Alert from 'react-bootstrap/Alert';
 import { Link } from 'react-router-dom';
+import Showerdude from '../../logos/showerdude.jpg'
 
 import { connect } from "react-redux";
 import * as authActions from "../../redux/actions/auth";
@@ -22,11 +23,11 @@ function Header(props) {
       localStorage.removeItem('auth');
       props.actions.logout()
     })
-    .catch((error) => {
-      console.log(error)
-      // handle error
-      setErrorMessage(error.response.data.message)
-    })
+      .catch((error) => {
+        console.log(error)
+        // handle error
+        setErrorMessage(error.response.data.message)
+      })
   }
 
   let authLinks = ""
@@ -49,7 +50,7 @@ function Header(props) {
   return (
     <div className="Navbar mb-3">
       <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand as={Link} to="/">Social Network Lite</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/"><img src={Showerdude} width="100px" /> ShowerThoughtz</Navbar.Brand>
         {authLinks}
       </Navbar>
       {errorMessage && <div className="container mt-3"><Alert variant="danger">{errorMessage}</Alert></div>}
