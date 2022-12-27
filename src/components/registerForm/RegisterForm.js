@@ -23,7 +23,7 @@ class RegisterForm extends Component {
     handleChange = (event) => {
         let tempFormData = { ...this.state.formData };
         tempFormData[event.target.id] = event.target.value;
-        this.setState({ formData:tempFormData });
+        this.setState({ formData: tempFormData });
     }
 
 
@@ -31,7 +31,23 @@ class RegisterForm extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         // This is where we make the API call POST/api/users
-        console.log(this.state.formData)
+
+
+        fetch(`${process.env.REACT_APP_API_URL}/api/users`, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state.formData),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({ success: true })
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     render() {
