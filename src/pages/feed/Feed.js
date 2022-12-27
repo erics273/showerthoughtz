@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import mustBeAuthenticated from "../../redux/hoc/mustBeAuthenticated";
 import Header from "../../components/header/Header";
+import PostForm from "../../components/postForm/PostForm";
 
 class Feed extends Component {
 
@@ -10,6 +11,7 @@ class Feed extends Component {
                 <Header isAuthenticated={this.props.isAuthenticated} />
                 <div className="container">
                     <h2>Post Feed</h2>
+                    <PostForm />
                 </div>
             </div>
         );

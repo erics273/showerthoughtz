@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
-import { Redirect, withRouter, Link } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
 
 class PostForm extends Component {
@@ -11,8 +11,8 @@ class PostForm extends Component {
     state = {
         errorMessage: null,
         success: false,
-        formData: {
-            thoughts: "",
+        postData: {
+            thought: "",
         }
     }
 
@@ -32,9 +32,6 @@ class PostForm extends Component {
     }
 
     render() {
-        if (this.state.success) {
-            return <Redirect to="/" />
-        }
         return (
             <div className="PostForm container">
 
@@ -42,9 +39,9 @@ class PostForm extends Component {
 
                 <h2 className="text-center" >Post something</h2>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="post">
+                    <Form.Group controlId="thought">
                         <Form.Label>Post</Form.Label>
-                        <Form.Control onChange={this.handleChange} value={this.state.formData.posts} type="text" placeholder="Whatcha thinkin?" />
+                        <Form.Control onChange={this.handleChange} value={this.state.postData.thought} type="text" placeholder="Whatcha thinkin?" />
                     </Form.Group>
 
 
