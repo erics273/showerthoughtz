@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import { generateAuthHeader } from "../../utils/authHelper";
 
 import { Redirect, withRouter } from "react-router-dom";
 
@@ -10,7 +11,6 @@ class PostForm extends Component {
 
     state = {
         errorMessage: null,
-        success: false,
         postData: {
             thought: "",
         }
@@ -29,6 +29,23 @@ class PostForm extends Component {
         event.preventDefault();
         // This is where we make the API call POST/api/users
         console.log(this.state.postData)
+        fetch(`${process.env.REACT_APP_API_URL}/api/posts`, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                ...generateAuthHeader()
+
+            },
+            body: JSON.stringify({text: this.state.postData.thought}),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
     }
 
     render() {
