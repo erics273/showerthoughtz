@@ -9,6 +9,7 @@ function Post() {
         <div className="Registration">
             <Header />
             <PostForm />
+            
 
 
 
