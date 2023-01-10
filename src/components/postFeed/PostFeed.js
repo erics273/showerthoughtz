@@ -1,5 +1,6 @@
 import { generateAuthHeader } from "../../utils/authHelper";
 import React, { useState, useEffect } from 'react';
+import Post from "../post/Post";
 
 
 
@@ -36,14 +37,10 @@ function PostFeed(props) {
 
 
     return (
-        <div className="PostFeed">Hello from the Post Feed
+        <div className="PostFeed">
             {posts.map((post) => {
-                return(
-                <div>
-                    <div>{post.username}</div>
-                    <br></br>
-                    <div>{post.text}</div>
-                </div>
+                return (
+                    <Post thoughtshit={post} key={post._id} />
                 )
             })}
 

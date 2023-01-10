@@ -12,7 +12,7 @@ class Feed extends Component {
                 <Header isAuthenticated={this.props.isAuthenticated} />
                 <div className="container">
                     <h2>Post Feed</h2>
-                    <PostForm />
+                    <PostForm  />
                     <PostFeed />
                 </div>
             </div>

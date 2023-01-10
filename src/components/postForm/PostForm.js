@@ -58,7 +58,7 @@ class PostForm extends Component {
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="thought">
                         <Form.Label>Post</Form.Label>
-                        <Form.Control onChange={this.handleChange} autoFocus value={this.state.postData.thought} type="text" placeholder="Whatcha thinkin?" required minLength="3" maxLength="10" />
+                        <Form.Control onChange={this.handleChange} autoFocus value={this.state.postData.thought} type="text" placeholder="Whatcha thinkin?" required minLength="3" maxLength="100" />
                     </Form.Group>
 
 

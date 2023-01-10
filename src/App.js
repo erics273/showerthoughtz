@@ -4,7 +4,7 @@ import Home from "./pages/home/Home";
 import Feed from "./pages/feed/Feed";
 import NotFound from "./pages/notFound/NotFound";
 import Registration from "./pages/registration/Registration";
-import Post from "./pages/post/Post";
+import Post from "./components/post/Post";
 
 
 function App() {
