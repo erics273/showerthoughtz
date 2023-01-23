@@ -41,6 +41,11 @@ class PostForm extends Component {
             .then((response) => response.json())
             .then((data) => {
                 console.log('Success:', data);
+
+                //updates state and reset thought to an empty string so it updates the form
+                this.setState({ 
+                    postData: {thought: ""}
+                })
             })
             .catch((error) => {
                 console.error('Error:', error);
