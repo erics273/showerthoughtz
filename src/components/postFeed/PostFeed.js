@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import Post from "../post/Post";
 
 
-
-
 function PostFeed(props) {
 
     let [posts, setPosts] = useState([])
@@ -25,6 +23,10 @@ function PostFeed(props) {
         })
             .then((response) => response.json())
             .then((data) => {
+
+                //reverse the posts so that the newest post is first in the array
+                data.reverse()
+
                 setPosts(data)
                 console.log('Success:', data);
             })
