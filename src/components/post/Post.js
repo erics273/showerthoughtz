@@ -28,3 +28,8 @@ function Post(props) {
 
 export default Post;
 
+// 1/10/23
+
+// Making sure new post display on post feed without reloading page. This is gonna require some reworking of the PostFeed and PostForm componets.
+// We are gonna "lift state" wooooo
+

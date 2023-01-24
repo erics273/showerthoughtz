@@ -59,7 +59,7 @@ class Login extends Component {
         }
         return (
             <div className="Login container">
-
+               
                 {this.state.errorMessage && <Alert variant="danger">{this.state.errorMessage}</Alert>}
 
                 <h2 className="text-center" >ShowerThoughtz (another social media page)</h2>
