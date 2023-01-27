@@ -40,14 +40,38 @@ class RegisterForm extends Component {
             },
             body: JSON.stringify(this.state.formData),
         })
-            .then((response) => response.json())
-            .then((data) => {
-                this.setState({ success: true })
-                console.log('Success:', data);
+
+
+        // ********** attempt at fixing the 404 ************
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
             })
-            .catch((error) => {
-                console.error('Error:', error);
+            .then((jsonResponse) => {
+                // do whatever you want with the JSON response
+            }).catch((error) => {
+                // Handle the error
+                console.log(error);
             });
+
+
+
+
+// ******* OG Code *********
+
+        // .then((response) => response.json())
+        // .then((data) => {
+        //     if (response.status >= 200 && response.status <= 299){
+        //     this.setState({ success: true })
+        //     console.log('Success:', data);
+        // }})
+        // .catch((error) => {
+        //     this.setState({ errorMessage: error.response.data.message })
+        //     console.error('Error:', error);
+        // });
     }
 
     render() {
@@ -83,7 +107,9 @@ class RegisterForm extends Component {
                         <Form.Control onChange={this.handleChange} value={this.state.formData.confirmPassword} type="password" placeholder="Confirm Password" />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
+                    <Button
+                        // as={Link} to="/feed" 
+                        variant="primary" type="submit">
                         Submit
                     </Button>
 

@@ -48,45 +48,51 @@ class Login extends Component {
             .catch((error) => {
                 // handle error
                 this.setState({ errorMessage: error.response.data.message })
+
+                    
+
+
             })
+            
     }
 
-    render() {
-        if (this.state.success) {
-            const params = new URLSearchParams(this.props.location.search);
-            const redirect = params.get('redirect');
-            return <Redirect to={(redirect) ? redirect : "/feed"} />
-        }
-        return (
-            <div className="Login container">
-               
-                {this.state.errorMessage && <Alert variant="danger">{this.state.errorMessage}</Alert>}
-
-                <h2 className="text-center" >ShowerThoughtz (another social media page)</h2>
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="username">
-                        <Form.Label>Username:</Form.Label>
-                        <Form.Control onChange={this.handleChange} value={this.state.formData.username} type="text" placeholder="Username" />
-                    </Form.Group>
-
-                    <Form.Group controlId="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control onChange={this.handleChange} value={this.state.formData.password} type="password" placeholder="Password" />
-                    </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                    <Button as={Link} to="/register" variant="primary">
-                        Register!!!!
-                    </Button>
-
-
-                </Form>
-
-
-            </div>
-        )
+render() {
+    if (this.state.success) {
+        const params = new URLSearchParams(this.props.location.search);
+        const redirect = params.get('redirect');
+        return <Redirect to={(redirect) ? redirect : "/feed"} />
     }
+    return (
+        <div className="Login container">
+
+            {this.state.errorMessage && <Alert variant="danger">{this.state.errorMessage}</Alert>}
+
+            <h2 className="text-center" >ShowerThoughtz (another social media page)</h2>
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Group controlId="username">
+                    <Form.Label>Username:</Form.Label>
+                    <Form.Control onChange={this.handleChange} value={this.state.formData.username} type="text" placeholder="Username" />
+                </Form.Group>
+
+                <Form.Group controlId="password">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control onChange={this.handleChange} value={this.state.formData.password} type="password" placeholder="Password" />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+                <Button as={Link} to="/register" variant="primary">
+                    Register!!!!
+                </Button>
+
+                
+
+            </Form>
+
+
+        </div>
+    )
+}
 }
 
 function mapStateToProps(state) {
