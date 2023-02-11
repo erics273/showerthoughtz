@@ -52,7 +52,33 @@ class PostForm extends Component {
                 console.error('Error:', error);
             });
 
-    }
+        // *************************************************************
+
+
+        // try {
+
+        //     // This is where we make the API call POST/api/users
+        //     console.log(this.state.postData)
+        //     let response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts`, {
+        //         method: "POST", // or 'PUT'
+
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify(this.state.formData),
+        //     });
+
+        //     let data = await response.json()
+        //     console.log("new post created:", data);
+        //      }
+        // catch (error) {
+        //     console.error(error.message);
+
+        //     this.setState({ errorMessage: "No! Do it AGAIN!!!" });
+        // }
+    
+  
+ }
 
     render() {
         return (

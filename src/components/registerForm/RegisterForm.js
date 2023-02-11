@@ -27,53 +27,38 @@ class RegisterForm extends Component {
     }
 
 
-
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        // This is where we make the API call POST/api/users
 
+        try {
+            let response = await fetch(`${process.env.REACT_APP_API_URL}/api/users`, {
+                method: "POST", // or 'PUT'
 
-        fetch(`${process.env.REACT_APP_API_URL}/api/users`, {
-            method: 'POST', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.state.formData),
-        })
-
-
-        // ********** attempt at fixing the 404 ************
-            .then((response) => {
-                if (response.status >= 200 && response.status <= 299) {
-                    return response.json();
-                } else {
-                    throw Error(response.statusText);
-                }
-            })
-            .then((jsonResponse) => {
-                // do whatever you want with the JSON response
-            }).catch((error) => {
-                // Handle the error
-                console.log(error);
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(this.state.formData),
             });
+            console.log("resolved", response);
 
+            if (response.status >= 200 && response.status <= 299) {
+                this.setState({ success: true })
+            }
 
+            else {
+                throw Error(response.statusText);
+            }
 
+            let data = await response.json();
+            console.log("new user created:", data);
+        } catch (error) {
+            console.error(error.message);
 
-// ******* OG Code *********
+            this.setState({ errorMessage: "No! Do it AGAIN!!!" });
+        }
+    };
 
-        // .then((response) => response.json())
-        // .then((data) => {
-        //     if (response.status >= 200 && response.status <= 299){
-        //     this.setState({ success: true })
-        //     console.log('Success:', data);
-        // }})
-        // .catch((error) => {
-        //     this.setState({ errorMessage: error.response.data.message })
-        //     console.error('Error:', error);
-        // });
-    }
-
+    // ***********************
     render() {
         if (this.state.success) {
             return <Redirect to="/" />
@@ -126,3 +111,8 @@ class RegisterForm extends Component {
 
 
 export default withRouter(RegisterForm);
+
+
+// *********
+// trying to convert Registerform handle submit to an async function. 
+// The error shit seems to be working but the success part aint it. Its only showing that the user was created on line 86
