@@ -41,13 +41,11 @@ class RegisterForm extends Component {
             });
             console.log("resolved", response);
 
-            if (response.status >= 200 && response.status <= 299) {
-                this.setState({ success: true })
-            }
-
-            else {
+            if (response.status < 200 || response.status > 299) {
                 throw Error(response.statusText);
             }
+            this.setState({ success: true })
+
 
             let data = await response.json();
             console.log("new user created:", data);

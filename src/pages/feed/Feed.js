@@ -13,7 +13,7 @@ function Feed(props) {
 
     useEffect(() => {
         getPosts()
-        console.log("cockmonster")
+        console.log("getPosts successful")
     }, []);
 
 
