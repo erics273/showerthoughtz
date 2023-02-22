@@ -17,37 +17,37 @@ function Feed(props) {
     }, []);
 
 
-    let getPosts = () => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/posts`, {
-            method: 'GET', //< By default, the method fetch uses is "GET" so you dont really need this. This is just here for education
-            headers: {
-                ...generateAuthHeader()
+    let getPosts = async (event) => {
 
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-
-                //reverse the posts so that the newest post is first in the array
-                data.reverse()
-
-                setPosts(data)
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
+        try {
+            let response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts`, {
+                method: "GET",
+                headers: {
+                    ...generateAuthHeader(),
+                },
             });
+            console.log(response);
 
-    }
+            let data = await response.json();
+            data.reverse();
+            setPosts(data);
 
+            console.log("you got posts", data);
+
+
+        }
+        catch (error) {
+            console.error("Error:", error);
+        }
+    };
 
     return (
         <div className="Feed">
             <Header isAuthenticated={props.isAuthenticated} />
             <div className="container">
                 <h2>Post Feed</h2>
-                <PostForm getPostsProp={getPosts}/>
-                <PostFeed shitposts={posts}/>
+                <PostForm getPostsProp={getPosts} />
+                <PostFeed shitposts={posts} />
             </div>
         </div>
     );
