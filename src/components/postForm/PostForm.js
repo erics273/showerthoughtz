@@ -17,7 +17,6 @@ class PostForm extends Component {
         }
     }
 
-
     handleChange = (event) => {
         let tempPostData = { ...this.state.postData };
         tempPostData[event.target.id] = event.target.value;
