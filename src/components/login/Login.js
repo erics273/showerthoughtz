@@ -32,29 +32,54 @@ class Login extends Component {
 
 
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.client.login(this.state.formData).then((response) => {
-            // handle success
-            localStorage.setItem('auth',
-                JSON.stringify({
-                    token: response.data.token,
-                    username: response.data.username
-                })
-            );
-            this.props.actions.login(response.data)
-            this.setState({ success: true })
-        })
-            .catch((error) => {
-                // handle error
-                this.setState({ errorMessage: error.response.data.message })
+    // handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     this.client.login(this.state.formData).then((response) => {
+    //         // handle success
+    //         localStorage.setItem('auth',
+    //             JSON.stringify({
+    //                 token: response.data.token,
+    //                 username: response.data.username
+    //             })
+    //         );
+    //         this.props.actions.login(response.data)
+    //         this.setState({ success: true })
+    //     })
+    //         .catch((error) => {
+    //             // handle error
+    //             this.setState({ errorMessage: error.response.data.message })
 
                     
 
 
-            })
+    //         })
             
-    }
+    // }
+
+    // ***********************************************************
+
+
+    handleSubmit = async (event) => {
+        event.preventDefault();
+      
+        try {
+          let response = await this.client.login(this.state.formData);
+      
+          localStorage.setItem('auth', JSON.stringify({
+            token: response.data.token,
+            username: response.data.username,
+          }));
+      
+          this.props.actions.login(response.data);
+      
+          this.setState({ success: true });
+        } 
+        catch (error) {
+          this.setState({ errorMessage: error.response.data.message })
+        }
+      }
+
+
 
 render() {
     if (this.state.success) {
