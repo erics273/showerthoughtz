@@ -1,103 +1,83 @@
-import React, { Component } from "react";
+
+import React, { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import { generateAuthHeader } from "../../utils/authHelper";
-
 import { Redirect, withRouter } from "react-router-dom";
 
+function PostForm(props) {
 
-class PostForm extends Component {
+    let [errorMessage, setErrorMessage] = useState(null);
+    let [successMessage, setSuccessMessage] = useState(null);
+    let [postData, setPostData] = useState({ text: "" });
 
-    state = {
-        errorMessage: null,
-        successMessage: null,
-        postData: {
-            text: "",
-        }
-    }
-
-    handleChange = (event) => {
-        let tempPostData = { ...this.state.postData };
+    let handleChange = (event) => {
+        let tempPostData = { ...postData };
         tempPostData[event.target.id] = event.target.value;
-        this.setState({ postData: tempPostData });
+        setPostData(tempPostData);
     }
 
-
-
-    handleSubmit = async (event) => {
+    let handleSubmit = async (event) => {
         event.preventDefault();
 
+        console.log ("form submitted")
+
         try {
-
-            console.log(this.state.postData)
+            console.log(postData);
             let response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts`, {
-                method: "POST", // or 'PUT'
-                
-
-
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     ...generateAuthHeader()
                 },
-                body: JSON.stringify(this.state.postData),
-            
+                body: JSON.stringify(postData),
             });
-            console.log(response)
+
+            console.log(response);
             if (response.status < 200 || response.status > 299) {
                 throw Error(response.statusText);
             }
-            this.setState({ successMessage:"Post Submitted" })
-
-
-            let data = await response.json()
+            setSuccessMessage("Post Submitted");
+            let data = await response.json();
+            
             console.log('Success:', data);
-            this.props.getPostsProp()
-
-            this.setState({
-                postData: { text:"" }
-
-            })
-
+            props.getPostsProp();
+            setPostData({ text: "" });
         }
         catch (error) {
             console.error(error.message);
-
-            this.setState({ errorMessage: "Post FAAAILED!!!" });
+            setErrorMessage("Post FAAAILED!!!");
         }
-
-
     }
 
-    render() {
-        return (
-            <div className="PostForm container">
-
-                {this.state.errorMessage && <Alert variant="danger">{this.state.errorMessage}</Alert>}
-                {this.state.successMessage && <Alert variant="success">{this.state.successMessage}</Alert>}
 
 
-                <h2 className="text-center" >Post something</h2>
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="text">
-                        <Form.Label>Post</Form.Label>
-                        <Form.Control onChange={this.handleChange} autoFocus value={this.state.postData.text} type="text" placeholder="Whatcha thinkin?" required minLength="3" maxLength="100" />
-                    </Form.Group>
+return (
+    <div className="PostForm container">
+
+        {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+        {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
 
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
+        <h2 className="text-center" >Post something</h2>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="text">
+                <Form.Label>Post</Form.Label>
+                <Form.Control onChange={handleChange} autoFocus value={postData.text} type="text" placeholder="Whatcha thinkin?" required minLength="3" maxLength="100" />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+                Submit
+            </Button>
 
 
-                </Form>
+        </Form>
 
 
-            </div>
-        )
-    }
-}
+    </div>
+);
 
-
+};
 
 export default withRouter(PostForm);
