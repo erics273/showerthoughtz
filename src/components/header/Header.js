@@ -4,6 +4,9 @@ import Nav from 'react-bootstrap/Nav';
 import Alert from 'react-bootstrap/Alert';
 import { Link } from 'react-router-dom';
 import Showerdude from '../../logos/showerdude.jpg'
+import { FaHome } from 'react-icons/fa';
+import {BsFillChatRightTextFill} from "react-icons/bs";
+import {TiMessages} from "react-icons/ti";
 
 import { connect } from "react-redux";
 import * as authActions from "../../redux/actions/auth";
@@ -47,10 +50,14 @@ function Header(props) {
     )
   }
 
+
   return (
     <div className="Navbar mb-3">
       <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand as={Link} to="/"><img src={Showerdude} width="100px" /> ShowerThoughtz</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/"><img src={Showerdude} width="150px" style={{fontFamily:'Luckiest Guy', marginRight: 20 }}/> ShowerThoughtz</Navbar.Brand>
+        <h3 className='homeIcon'>  <FaHome color="white" style={{ marginRight: 20 }}  /></h3>
+       <h3 className='postIcon'> <BsFillChatRightTextFill color="white" style={{ marginRight: 20 }} /> </h3> 
+       <h3 className='messageIcon'> <TiMessages  color="white" /> </h3>
         {authLinks}
       </Navbar>
       {errorMessage && <div className="container mt-3"><Alert variant="danger">{errorMessage}</Alert></div>}
@@ -74,3 +81,9 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Header);
+
+
+
+
+
+

@@ -60,7 +60,7 @@ return (
         {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
 
-        <h2 className="text-center" >Post something</h2>
+        <h2 className="text-center">Post something</h2>
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="text">
                 <Form.Label>Post</Form.Label>
