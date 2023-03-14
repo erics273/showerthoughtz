@@ -54,9 +54,9 @@ function Header(props) {
   return (
     <div className="Navbar mb-3">
       <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand as={Link} to="/"><img src={Showerdude} width="150px" style={{fontFamily:'Luckiest Guy', marginRight: 20 }}/> ShowerThoughtz</Navbar.Brand>
-        <h3 className='homeIcon'>  <FaHome color="white" style={{ marginRight: 20 }}  /></h3>
-       <h3 className='postIcon'> <BsFillChatRightTextFill color="white" style={{ marginRight: 20 }} /> </h3> 
+        <Navbar.Brand as={Link} style={{ fontFamily: 'Luckiest Guy',fontSize: '50pt' }}  to="/"><img src={Showerdude} width="150px" style={{marginRight: 20 }}/> ShowerThoughtz</Navbar.Brand>
+        <h3 className='homeIcon'>  <FaHome color="white" style={{ marginRight: '20px' }}  /></h3>
+        <h3 className='postIcon'> <BsFillChatRightTextFill color="white" style={{ marginRight: '20px' }} /> </h3> 
        <h3 className='messageIcon'> <TiMessages  color="white" /> </h3>
         {authLinks}
       </Navbar>
