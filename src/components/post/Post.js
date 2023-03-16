@@ -1,51 +1,46 @@
-
-
-
+// import moment from 'moment';
 
 function Post(props) {
 
-
-    let dateFormat =(postDate) =>{
-
-       let theDate = new Date(postDate);
-       let theYear = theDate.getFullYear();
-        let theMonth = theDate.getMonth() + 1;
-        let theDay = theDate.getDate();
-
-        let formattedDate = theMonth + "/" + theDay + "/" + theYear
-
-        return formattedDate
+    // displaying date
+  let dateFormat = (postDate) => {
+    let theDate = new Date(postDate);
+    let theYear = theDate.getFullYear();
+    let theMonth = theDate.getMonth() + 1;
+    let theDay = theDate.getDate();
 
 
-        
-
-            
+    // displaying hours
+    let currentTime = new Date();
+    let diffInMs = currentTime - new Date(postDate);
+    let diffInHours = Math.floor(diffInMs / 1000 / 60 / 60);
+    let formattedDateWithHours = `${diffInHours} hours ago`;
+    let formattedDate = theMonth + "/" + theDay + "/" + theYear;
+   
+   
+    if (diffInHours < 24) {
+      return formattedDateWithHours;
     }
-    return (
-        <div className="Post">
 
-            <div >
-                <div>Username: {props.thoughtshit.username}</div>
+    return formattedDate;
+  };
+  return (
+    <div className="Post">
+      <div>
+        <div>Username: {props.thoughtshit.username}</div>
 
-                <div>Post: "{props.thoughtshit.text}"</div>
+        <div>Post: "{props.thoughtshit.text}"</div>
 
-                <div>Time Created: {dateFormat(props.thoughtshit.createdAt)}</div>
+        <div>Time Created: {dateFormat(props.thoughtshit.createdAt)}</div>
 
-                <div>Likes: {props.thoughtshit.likes.length}</div>
+        <div>Likes: {props.thoughtshit.likes.length}</div>
+      </div>
 
-            </div>
-
-
-
-        <hr/>
-        </div>
-
-
-    );
+      <hr />
+    </div>
+  );
 }
 
 export default Post;
 
 // 03/15/23  try to get it to display hpw many days ago a post was
-
-
