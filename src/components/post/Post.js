@@ -1,6 +1,16 @@
-// import moment from 'moment';
+import React, { useState } from "react";
 
 function Post(props) {
+
+    let [likes, setLikes] = useState(props.thoughtshit.likes.length);
+
+
+
+// Like button
+    function handleLikeButton() {
+        setLikes(likes + 1);
+      }
+
 
     // displaying date
     let dateFormat = (postDate) => {
@@ -17,6 +27,7 @@ function Post(props) {
         let diffInDays = Math.floor(diffInHours / 24);
         let formattedDate = theMonth + "/" + theDay + "/" + theYear;
 
+    
 
 
         if (diffInHours < 24) {
@@ -28,6 +39,8 @@ function Post(props) {
         } else {
             return formattedDate;
         }
+
+      
 
 
 
@@ -41,7 +54,7 @@ function Post(props) {
 
                 <div>Time Created: {dateFormat(props.thoughtshit.createdAt)}</div>
 
-                <div>Likes: {props.thoughtshit.likes.length}</div>
+                <button onClick={handleLikeButton}>Likes: {likes}</button>
             </div>
 
             <hr />
@@ -51,7 +64,7 @@ function Post(props) {
 
 export default Post;
 
-// 03/15/23  try to get it to display hpw many days ago a post was
+
 
 
 
