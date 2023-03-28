@@ -50,7 +50,7 @@ function Feed(props) {
         <div className="container">
           <h2>Post Feed</h2>
           <PostForm getPostsProp={getPosts} />
-          <PostFeed shitposts={posts} />
+          <PostFeed shitposts={posts} getPostsProp={getPosts}  />
         </div>
       </div>
     );

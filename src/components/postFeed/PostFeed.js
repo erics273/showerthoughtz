@@ -12,7 +12,7 @@ function PostFeed(props) {
         <div className="PostFeed">
             {props.shitposts.map((post) => {
                 return (
-                    <Post thoughtshit={post} key={post._id} />
+                    <Post thoughtshit={post} key={post._id} getPostsProp={props.getPostsProp} />
                 )
             })}
 
