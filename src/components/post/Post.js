@@ -88,4 +88,29 @@ function Post(props) {
 
 export default Post;
 
-// 03/15/23  try to get it to display hpw many days ago a post was
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

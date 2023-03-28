@@ -6,53 +6,7 @@ import Alert from "react-bootstrap/Alert";
 import { Redirect, withRouter, Link } from "react-router-dom";
 import { FormCheck } from "react-bootstrap";
 
-// class RegisterForm extends Component {
-//   state = {
-//     errorMessage: null,
-//     success: false,
-//     formData: {
-//       username: "",
-//       fullName: "",
-//       password: "",
-//       confirmPassword: "",
-//     },
-//   };
 
-//   handleChange = (event) => {
-//     let tempFormData = { ...this.state.formData };
-//     tempFormData[event.target.id] = event.target.value;
-//     this.setState({ formData: tempFormData });
-//   };
-
-//   handleSubmit = async (event) => {
-//     event.preventDefault();
-
-//     try {
-//       let response = await fetch(`${process.env.REACT_APP_API_URL}/api/users`, {
-//         method: "POST", // or 'PUT'
-
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(this.state.formData),
-//       });
-//       console.log("resolved", response);
-
-//       if (response.status < 200 || response.status > 299) {
-//         throw Error(response.statusText);
-//       }
-//       this.setState({ success: true });
-
-//       let data = await response.json();
-//       console.log("new user created:", data);
-//     } catch (error) {
-//       console.error(error.message);
-//       this.setState({ errorMessage: "No! Do it AGAIN!!!" });
-//     }
-//   };
-// }
-
-  // ***********************
 
   
 function RegisterForm() {
