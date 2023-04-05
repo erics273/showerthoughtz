@@ -43,14 +43,20 @@ function Feed(props) {
         console.error("Error:", error);
       }
     };
+
+    
+
+
+
+
   
     return (
       <div className="Feed">
         <Header isAuthenticated={props.isAuthenticated} />
         <div className="container">
           <h2>Post Feed</h2>
-          <PostForm getPostsProp={getPosts} />
-          <PostFeed shitposts={posts} getPostsProp={getPosts}  />
+          <PostForm getPostsProp={getPosts}  />
+          <PostFeed shitposts={posts} getPostsProp={getPosts}   />
         </div>
       </div>
     );

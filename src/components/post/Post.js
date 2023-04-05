@@ -6,8 +6,7 @@ import { generateAuthHeader } from "../../utils/authHelper";
 
 function Post(props) {
 
-    // let [likes, setLikes] = useState(props.thoughtshit.likes.length);
-
+  
     // Like button
 
     let handleLikeButton = async (event) => {
@@ -38,6 +37,39 @@ function Post(props) {
             console.error(error.message);
         }
     }
+
+    // handling Unlike
+    let handleUnlikeButtonClick = async (event) => {
+      event.preventDefault();
+      let likeId = props.thoughtshit.likes[props.thoughtshit.likes.length - 1]._id;
+      try {
+        let response = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/likes/${likeId}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              ...generateAuthHeader(),
+            },
+          
+          }
+         
+        );
+        
+        if (response.status < 200 || response.status > 299) {
+          throw Error(response.statusText);
+        }else {
+          console.log("post unliked")
+        }
+        props.getPostsProp();
+       } catch (error) {
+          console.error(error.message);
+      }
+     
+      }
+    
+  
+      
 
     // displaying date
     let dateFormat = (postDate) => {
@@ -78,7 +110,8 @@ function Post(props) {
 
                 <div>Time Created: {dateFormat(props.thoughtshit.createdAt)}</div>
 
-                <div><button onClick={handleLikeButton}>Likes:{props.thoughtshit.likes.length}</button></div>
+                <div style={{ display: "inline-block" }}><button onClick={handleLikeButton}>Likes:{props.thoughtshit.likes.length}</button></div>
+                <div style={{ display: "inline-block" }}><button onClick={handleUnlikeButtonClick}>Unlike</button></div>
             </div>
 
             <hr />
