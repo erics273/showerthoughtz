@@ -25,7 +25,7 @@ export function isAuthenticated(){
       }
 
 }
-export function getUserEmail(){
+export function getUserName(){
 
     let auth = localStorage.getItem("auth")
 
