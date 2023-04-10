@@ -51,87 +51,81 @@ function Post(props) {
 
 
     // let handleUnlikeButtonClick = async (event) => {
-    //   event.preventDefault();
-    //   let likeId = props.thoughtshit.likes[props.thoughtshit.likes.length - 1]._id;
-    //   let currentUserName = getUserName();
-    //   try {
-    //     let response = await fetch(
-    //       `${process.env.REACT_APP_API_URL}/api/likes/${likeId}`,
-    //       {
-    //         method: "DELETE",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //           ...generateAuthHeader(),
-    //         },
+    //     event.preventDefault();
+    //     let likeId = props.thoughtshit.likes[props.thoughtshit.likes.length - 1]._id;
+    //     try {
+    //       let response = await fetch(
+    //         `${process.env.REACT_APP_API_URL}/api/likes/${likeId}`,
+    //         {
+    //           method: "DELETE",
+    //           headers: {
+    //             "Content-Type": "application/json",
+    //             ...generateAuthHeader(),
+    //           },
+            
+    //         }
+           
+    //       );
           
+    //       if (response.status < 200 || response.status > 299) {
+    //         throw Error(response.statusText);
+    //       }else {
+    //         console.log("post unliked")
     //       }
-         
-    //     );
-        
-    //     if (response.status < 200 || response.status > 299) {
-    //       throw Error(response.statusText);
-    //     }else {
-    //       console.log("post unliked")
+    //       props.getPostsProp();
+    //      } catch (error) {
+    //         console.error(error.message);
     //     }
-    //     props.getPostsProp();
-    //    } catch (error) {
-    //       console.error(error.message);
-    //   }
-     
-    //   }
+       
+    //     }
 
+
+
+    //     // ********************************************************************
+  
+ 
 
     let handleUnlikeButtonClick = async (event) => {
         event.preventDefault();
+        let currentUserName = getUserName();
+        let likes = props.thoughtshit.likes;
         
-        // Get the current user's email
-       let currentUserEmail = getUserName();
-    
-        // Find the index of the like in the likes array
-        let likeIndex = -1;
-        for (let i = 0; i < props.thoughtshit.likes; i++) {
-            if (props.thoughtshit.likes[i].username === currentUserEmail) {
-                likeIndex = i;
-                break;
-            }
-        }
-    
-        if (likeIndex === -1) {
-            console.log("This post was not liked by the current user.");
-            return;
-        }
-    
-        let likeId = props.thoughtshit.likes[likeIndex]._id;
+        for (let i = 0; i < likes.length; i++) {
+          if (likes[i].likedBy === currentUserName) {
+          
+           console.log("likes", likes[i].username)
+     }
+         
   
+        }
+        
+        
         try {
-            let response = await fetch(
-                `${process.env.REACT_APP_API_URL}/api/likes/${likeId}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        ...generateAuthHeader(),
-                    },
-                }
-            );
-            
-            if (response.status < 200 || response.status > 299) {
-                throw Error(response.statusText);
-            } else {
-                console.log("post unliked")
+          const response = await fetch(
+            `${process.env.REACT_APP_API_URL}/api/likes`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                ...generateAuthHeader(),
+              },
             }
-            props.getPostsProp();
+          );
+          if (response.status < 200 || response.status > 299) {
+            throw Error(response.statusText);
+          } else {
+            console.log("post unliked");
+          }
+          props.getPostsProp();
         } catch (error) {
-            console.error(error.message);
+          console.error(error.message);
         }
-    }
-
+      };
       
     
-  
-      
+    
 
-    // displaying date
+     // displaying date
     let dateFormat = (postDate) => {
         let theDate = new Date(postDate);
         let theYear = theDate.getFullYear();
@@ -161,6 +155,7 @@ function Post(props) {
 
 
     };
+
     return (
         <div className="Post">
             <div>
@@ -178,6 +173,8 @@ function Post(props) {
         </div>
     );
 }
+    
+
 
 export default Post;
 
