@@ -67,93 +67,57 @@ function Post(props) {
 
   //     // ********************************************************************
 
-//   let handleUnlikeButtonClick = async (event) => {
-//     event.preventDefault();
-//     let currentUserName = getUserName();
-//     let likes = props.thoughtshit.likes;
-
-
-//     for (let i = 0; i < likes.length; i++) {
-//       if (likes[i].likedBy === currentUserName) {
-        
-
-//         let likeId = props.thoughtshit.likes[i]._id;
-
-//         console.log("liked by", likes[i].username);
-//         console.log("liked by", likeId);
-
-//       }
-    
-//     }
-
-    
-
-
-//     try {
-//       const response = await fetch(
-//         `${process.env.REACT_APP_API_URL}/api/likes/${likeId}`,
-//         {
-//           method: "DELETE",
-//           headers: {
-//             "Content-Type": "application/json",
-//             ...generateAuthHeader(),
-//           },
-//         }
-//       );
-//       if (response.status < 200 || response.status > 299) {
-//         throw Error(response.statusText);
-//       } else {
-//         console.log("post unliked");
-//       }
-//       props.getPostsProp();
-//     } catch (error) {
-//       console.error(error.message);
-//     }
-
-
-let handleUnlikeButtonClick = async (event) => {
+  let handleUnlikeButtonClick = async (event) => {
     event.preventDefault();
-
     let currentUserName = getUserName();
     let likes = props.thoughtshit.likes;
-
-    // Filter likes to only keep those made by the current user
-    let currentUserLikes = likes.filter((like) => like.likedBy === currentUserName);
-
-    // reverse order to get the most recent like from the current user
-    // let sortedCurrentUserLikes = currentUserLikes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-    console.log(currentUserLikes)
+    let likeId = null;
 
 
-    if (currentUserLikes.length > 0) {
-        // Get the most recent like object
-        let lastLike = currentUserLikes[0];
+    for (let i = 0; i < likes.length; i++) {
+      if (likes[i].likedBy === currentUserName) {
+        
 
-        try {
-            const response = await fetch(
-                `${process.env.REACT_APP_API_URL}/api/likes/${lastLike}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        ...generateAuthHeader(),
-                    },
-                }
-            );
-            if (response.status < 200 || response.status > 299) {
-                throw Error(response.statusText);
-            } else {
-                console.log("post unliked");
-            }
-            props.getPostsProp();
-        } catch (error) {
-            console.error(error.message);
-        }
-    } else {
-        console.log("This post was not liked by the current user.");
+        let likeId = props.thoughtshit.likes[i]._id;
+
+        console.log("liked by", likes[i].username);
+        console.log("id:", likeId);
+        console.log(likes)
+
+      }
+    
     }
-};
+
+ 
+    if (!likeId) {
+      console.log("User has not liked this post");
+      return;
+    }
+    
+
+
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/likes/${likeId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            ...generateAuthHeader(),
+          },
+        }
+      );
+      if (response.status < 200 || response.status > 299) {
+        throw Error(response.statusText);
+      } else {
+        console.log("post unliked");
+      }
+      props.getPostsProp();
+    } catch (error) {
+      console.error(error.message);
+    }
+
+  }
 
 
   
