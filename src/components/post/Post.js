@@ -72,6 +72,7 @@ function Post(props) {
     let currentUserName = getUserName();
     let likes = props.thoughtshit.likes;
     let likeId = null;
+    let currentLike = props.thoughtshit.likes[0]
 
 
     for (let i = 0; i < likes.length; i++) {
@@ -80,27 +81,30 @@ function Post(props) {
 
         let likeId = props.thoughtshit.likes[i]._id;
 
-        console.log("liked by", likes[i].username);
-        console.log("id:", likeId);
-        console.log(likes)
+        // console.log("liked by", likes[i].username);
+        // console.log("id:", likeId);
+        // console.log(likes[i])
 
       }
     
     }
 
  
+    console.log(currentLike)
+
     if (!likeId) {
       console.log("User has not liked this post");
       return;
     }
-    
 
+    
+    
 
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/likes/${likeId}`,
         {
-          method: "DELETE",
+           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             ...generateAuthHeader(),
