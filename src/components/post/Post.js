@@ -70,16 +70,17 @@ function Post(props) {
   let handleUnlikeButtonClick = async (event) => {
     event.preventDefault();
     let currentUserName = getUserName();
+    console.log(currentUserName)
     let likes = props.thoughtshit.likes;
     let likeId = null;
     let currentLike = props.thoughtshit.likes[0]
 
 
     for (let i = 0; i < likes.length; i++) {
-      if (likes[i].likedBy === currentUserName) {
+      if (likes[i].username === currentUserName) {
         
 
-        let likeId = props.thoughtshit.likes[i]._id;
+        likeId = props.thoughtshit.likes[i]._id;
 
         // console.log("liked by", likes[i].username);
         // console.log("id:", likeId);
@@ -106,7 +107,6 @@ function Post(props) {
         {
            method: "DELETE",
           headers: {
-            "Content-Type": "application/json",
             ...generateAuthHeader(),
           },
         }
@@ -176,3 +176,9 @@ function Post(props) {
 }
 
 export default Post;
+
+
+// 4/14
+// Right now its diplaying the like and unlike button no matter what. 
+// We want it to display like regardless but only unlike button if post has been liked by user
+// "conditional rendering" on unlike, diplaying and not displaying divs.

@@ -32,7 +32,7 @@ export function getUserName(){
     if(auth){
         auth = JSON.parse(auth)
         if(auth.token){
-            return auth.userName;
+            return auth.username;
         }
         return false
       }
