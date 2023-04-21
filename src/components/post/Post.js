@@ -1,10 +1,38 @@
 import moment from "moment";
-// import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { generateAuthHeader } from "../../utils/authHelper";
 import { getUserName } from "../../utils/authHelper";
 
 function Post(props) {
+
+  let currentUserName = getUserName();
+  console.log(currentUserName);
+  let likes = props.thoughtshit.likes;
+  let likeId = null;
+
+  let likedPost = props.thoughtshit.likes.some(
+    (like) => like.username === currentUserName
+  );
+
+  
   // Like button
+  // const [likedByCurrentUser, setLikedByCurrentUser] = useState(false);
+  
+  // let checkIfLikedByCurrentUser = () => {
+  //   let currentUserName = getUserName();
+  //   let likes = props.thoughtshit.likes;
+
+  //   for (let i = 0; i < likes.length; i++) {
+  //     if (likes[i].username === currentUserName) {
+  //       setLikedByCurrentUser(true);
+  //     }
+  //   }
+  // }
+  
+  
+  
+  
+  // **********************Handle unlike button click**********************
 
   let handleLikeButton = async (event) => {
     event.preventDefault();
@@ -28,84 +56,45 @@ function Post(props) {
       }
       console.log("post liked");
 
+      // update liked state to true
+
       props.getPostsProp();
+      // setLikedByCurrentUser(true);
     } catch (error) {
       console.error(error.message);
     }
   };
 
-  // handling Unlike
 
-  // let handleUnlikeButtonClick = async (event) => {
-  //     event.preventDefault();
-  // let likeId = props.thoughtshit.likes[props.thoughtshit.likes.length - 1]._id;
-  //     try {
-  //       let response = await fetch(
-  //         `${process.env.REACT_APP_API_URL}/api/likes/${likeId}`,
-  //         {
-  //           method: "DELETE",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             ...generateAuthHeader(),
-  //           },
-
-  //         }
-
-  //       );
-
-  //       if (response.status < 200 || response.status > 299) {
-  //         throw Error(response.statusText);
-  //       }else {
-  //         console.log("post unliked")
-  //       }
-  //       props.getPostsProp();
-  //      } catch (error) {
-  //         console.error(error.message);
-  //     }
-
-  //     }
-
-  //     // ********************************************************************
+  // **********************Handle unlike button click**********************
 
   let handleUnlikeButtonClick = async (event) => {
     event.preventDefault();
-    let currentUserName = getUserName();
-    console.log(currentUserName)
-    let likes = props.thoughtshit.likes;
-    let likeId = null;
-    let currentLike = props.thoughtshit.likes[0]
-
+    // let currentUserName = getUserName();
+    // console.log(currentUserName);
+    // let likes = props.thoughtshit.likes;
+    // let likeId = null;
 
     for (let i = 0; i < likes.length; i++) {
       if (likes[i].username === currentUserName) {
-        
-
         likeId = props.thoughtshit.likes[i]._id;
 
         // console.log("liked by", likes[i].username);
         // console.log("id:", likeId);
         // console.log(likes[i])
-
       }
-    
     }
-
- 
-    console.log(currentLike)
 
     if (!likeId) {
       console.log("User has not liked this post");
       return;
     }
 
-    
-    
-
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/likes/${likeId}`,
         {
-           method: "DELETE",
+          method: "DELETE",
           headers: {
             ...generateAuthHeader(),
           },
@@ -120,11 +109,7 @@ function Post(props) {
     } catch (error) {
       console.error(error.message);
     }
-
-  }
-
-
-  
+  };
 
   // displaying date
   let dateFormat = (postDate) => {
@@ -151,6 +136,7 @@ function Post(props) {
     }
   };
 
+
   return (
     <div className="Post">
       <div>
@@ -166,7 +152,9 @@ function Post(props) {
           </button>
         </div>
         <div style={{ display: "inline-block" }}>
+        {likedPost && (
           <button onClick={handleUnlikeButtonClick}>Unlike</button>
+     )}
         </div>
       </div>
 
@@ -177,8 +165,7 @@ function Post(props) {
 
 export default Post;
 
-
 // 4/14
-// Right now its diplaying the like and unlike button no matter what. 
+// Right now its diplaying the like and unlike button no matter what.
 // We want it to display like regardless but only unlike button if post has been liked by user
 // "conditional rendering" on unlike, diplaying and not displaying divs.
