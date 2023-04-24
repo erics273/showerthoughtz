@@ -144,11 +144,12 @@ function Post(props) {
                 <div>Time Created: {dateFormat(props.thoughtshit.createdAt)}</div>
 
                 <div style={{ display: "inline-block" }}>
-                    <button onClick={likedPost ? handleUnlikeButtonClick : handleLikeButton}>
                         {/* ^^ This is an if else statement but easier, "?" is the if and ":" is the else ^^*/}
+                        <Button variant={likedPost ? "primary" : "secondary"} onClick={likedPost ? handleUnlikeButtonClick : handleLikeButton}>
+
 
                         Likes:{props.thoughtshit.likes.length}
-                    </button>
+                    </Button>
                 </div>
                 <div style={{ display: "inline-block" }}>
                 </div>
