@@ -1,8 +1,9 @@
 import moment from "moment";
-import Button from 'react-bootstrap/Button'
+// import Button from 'react-bootstrap/Button'
 import React, { useState, useEffect } from "react";
 import { generateAuthHeader } from "../../utils/authHelper";
 import { getUserName } from "../../utils/authHelper";
+import { Card, Button, Fade } from 'react-bootstrap';
 
 function Post(props) {
 
@@ -135,28 +136,42 @@ function Post(props) {
 
 
     return (
-        <div className="Post">
-            <div>
-                <div>Username: {props.thoughtshit.username}</div>
+        // <div className="Post">
+        //     <div>
+        //         <div>Username: {props.thoughtshit.username}</div>
 
-                <div>Post: "{props.thoughtshit.text}"</div>
+        //         <div>Post: "{props.thoughtshit.text}"</div>
 
-                <div>Time Created: {dateFormat(props.thoughtshit.createdAt)}</div>
+        //         <div>Time Created: {dateFormat(props.thoughtshit.createdAt)}</div>
 
-                <div style={{ display: "inline-block" }}>
-                        {/* ^^ This is an if else statement but easier, "?" is the if and ":" is the else ^^*/}
-                        <Button variant={likedPost ? "primary" : "secondary"} onClick={likedPost ? handleUnlikeButtonClick : handleLikeButton}>
+        //         <div style={{ display: "inline-block" }}>
+        //                 {/* ^^ This is an if else statement but easier, "?" is the if and ":" is the else ^^*/}
+        //                 <Button variant={likedPost ? "primary" : "secondary"} onClick={likedPost ? handleUnlikeButtonClick : handleLikeButton}>
 
 
-                        Likes:{props.thoughtshit.likes.length}
-                    </Button>
-                </div>
-                <div style={{ display: "inline-block" }}>
-                </div>
-            </div>
+        //                 Likes:{props.thoughtshit.likes.length}
+        //             </Button>
+        //         </div>
+        //         <div style={{ display: "inline-block" }}>
+        //         </div>
+        //     </div>
 
-            <hr />
-        </div>
+        //     <hr />
+        // </div>
+
+       
+        <Card className="mb-3">
+        <Card.Header style={{backgroundColor: "wheat"}}>Username: {props.thoughtshit.username}</Card.Header>
+        <Card.Body>
+          <Card.Text>Post: "{props.thoughtshit.text}"</Card.Text>
+          <Card.Text>Time Created: {dateFormat(props.thoughtshit.createdAt)}</Card.Text>
+          <div style={{ display: "inline-block" }}>
+            <Button variant={likedPost ? "primary" : "secondary"} onClick={likedPost ? handleUnlikeButtonClick : handleLikeButton}>
+              Likes:{props.thoughtshit.likes.length}
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
     );
 }
 

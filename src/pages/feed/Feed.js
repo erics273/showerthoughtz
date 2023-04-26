@@ -54,7 +54,7 @@ function Feed(props) {
       <div className="Feed">
         <Header isAuthenticated={props.isAuthenticated} />
         <div className="container">
-          <h2>Post Feed</h2>
+          <h2></h2>
           <PostForm getPostsProp={getPosts}  />
           <PostFeed shitposts={posts} getPostsProp={getPosts}   />
         </div>
