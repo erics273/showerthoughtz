@@ -120,9 +120,13 @@ function Post(props) {
         let diffInDays = Math.floor(diffInHours / 24);
         let formattedDate = theMonth + "/" + theDay + "/" + theYear;
 
-        if (diffInHours < 24) {
+        if (diffInHours >= 1 && diffInHours < 24) {
             return `${diffInHours} hours ago`;
-        } else if (diffInDays === 1) {
+        } 
+        else if (diffInHours < 1) {
+            return "Less than an hour ago";
+        }
+        else if (diffInDays === 1) {
             return "Yesterday";
         } else if (diffInDays <= 7) {
             return `${diffInDays} days ago`;

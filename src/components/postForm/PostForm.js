@@ -6,6 +6,7 @@ import Alert from 'react-bootstrap/Alert';
 import { generateAuthHeader } from "../../utils/authHelper";
 import { Redirect, withRouter } from "react-router-dom";
 
+
 function PostForm(props) {
 
     let [errorMessage, setErrorMessage] = useState(null);
@@ -64,7 +65,7 @@ return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="text">
                 <Form.Label>Post</Form.Label>
-                <Form.Control onChange={handleChange} autoFocus value={postData.text} type="text" placeholder="Whatcha thinkin?" required minLength="3" maxLength="100" />
+                <Form.Control onChange={handleChange} autoFocus value={postData.text} type="text" placeholder="Whatcha thinkin?" required minLength="3" maxLength="255" />
             </Form.Group>
 
             <Button variant="primary" type="submit">
