@@ -39,5 +39,12 @@ export function getUserName(){
 
 }
 
+// export function getUserGravatar(username) {
+
+//     let hash = md5(username)
+
+//     return "https://en.gravatar.com/avatar/" + hash + "what ever you default image is ex: ?d=....."
+// }
+
 
     

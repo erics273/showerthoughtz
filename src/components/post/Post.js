@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { generateAuthHeader } from "../../utils/authHelper";
 import { getUserName } from "../../utils/authHelper";
 import { Card, Button, Fade } from 'react-bootstrap';
+import md5 from 'md5'
 
 function Post(props) {
 
@@ -165,7 +166,7 @@ function Post(props) {
 
        
         <Card className="mb-3">
-        <Card.Header style={{backgroundColor: "wheat"}}>Username: {props.thoughtshit.username}</Card.Header>
+            <Card.Header style={{ backgroundColor: "wheat" }}>Username: {props.thoughtshit.username} hashedUsername: {md5(props.thoughtshit.username)}</Card.Header>
         <Card.Body>
           <Card.Text>Post: "{props.thoughtshit.text}"</Card.Text>
           <Card.Text>Time Created: {dateFormat(props.thoughtshit.createdAt)}</Card.Text>
@@ -181,7 +182,17 @@ function Post(props) {
 
 export default Post;
 
-// 4/21
-// "Look and feel"
-// Switch the button to a bootstrap button
-// Change the color of the buttons on click. Ex: Blue if liked
+// space out submit button from firstt post
+
+// MD5 hash generator
+
+// request ex: encodeURI,gravatar.com/avatar/hash
+
+// the gravatar docs en.gravatar.com/site/implement/images
+
+// ***Tips***
+// get user email or name
+// utilize gravatar to give the user an profile pic  
+
+
+
