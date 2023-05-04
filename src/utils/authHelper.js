@@ -1,3 +1,6 @@
+import md5 from 'md5'
+
+
 export function generateAuthHeader(){
     let auth = localStorage.getItem("auth")
 
@@ -39,12 +42,12 @@ export function getUserName(){
 
 }
 
-// export function getUserGravatar(username) {
+export function getUserGravatar(username) {
 
-//     let hash = md5(username)
+    let hash = md5(username)
 
-//     return "https://en.gravatar.com/avatar/" + hash + "what ever you default image is ex: ?d=....."
-// }
+    return "https://en.gravatar.com/avatar/" + hash + "d=what ever you default image is ex: ?d=....."
+}
 
 
     
