@@ -68,9 +68,12 @@ return (
                 <Form.Control onChange={handleChange} autoFocus value={postData.text} type="text" placeholder="Whatcha thinkin?" required minLength="3" maxLength="255" />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" style={{ marginBottom: '20px' }}>
                 Submit
             </Button>
+           
+            
+          
 
 
         </Form>
