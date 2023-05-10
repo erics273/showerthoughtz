@@ -5,6 +5,7 @@ import { generateAuthHeader, getUserGravatar } from "../../utils/authHelper";
 import { getUserName } from "../../utils/authHelper";
 import { Card, Button, Fade } from "react-bootstrap";
 import md5 from "md5";
+import { useParams } from "react-router-dom";
 
 function Post(props) {
   let gravatarUrl = getUserGravatar(props.thoughtshit.username);
@@ -158,14 +159,15 @@ function Post(props) {
     // </div>
 
     <Card className="mb-3">
-      <Card.Header style={{ backgroundColor: "wheat" }}>
-        Username: {props.thoughtshit.username}
-        <img src={gravatarUrl} alt="Profile picture" />
+          <Card.Header style={{ backgroundColor: "wheat", fontFamily: "Luckiest Guy", fontSize: "20pt" }}>
+       {props.thoughtshit.username}
+              <img style={{ marginLeft: 10 }} src={gravatarUrl} alt="Profile picture" />
       </Card.Header>
       <Card.Body>
-        <Card.Text>Post: "{props.thoughtshit.text}"</Card.Text>
+        {/* the users post */}
+        <Card.Text > {props.thoughtshit.text}</Card.Text>
         <Card.Text>
-          Time Created: {dateFormat(props.thoughtshit.createdAt)}
+         {dateFormat(props.thoughtshit.createdAt)}
         </Card.Text>
         <div style={{ display: "inline-block" }}>
           <Button
@@ -182,14 +184,14 @@ function Post(props) {
 
 export default Post;
 
-// space out submit button from firstt post
+// *****Style*****
+// Fix Like Button, add thumbs up icon
+// fade the time format
 
-// MD5 hash generator
 
-// request ex: encodeURI,gravatar.com/avatar/hash
 
-// the gravatar docs en.gravatar.com/site/implement/images
 
-// ***Tips***
-// get user email or name
-// utilize gravatar to give the user an profile pic
+// **********************/
+// Create a user profile page with the ability to update (edit profile)
+// On accessible by logging in 
+// Use "create a user in the API"

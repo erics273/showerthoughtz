@@ -41,8 +41,9 @@ function Header(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
+            {/* the user is signed in as... */}
             <Navbar.Text className="font-weight-bold">
-              Signed in as: {props.auth.username}
+               {props.auth.username}
             </Navbar.Text>
             <Nav.Link onClick={handleSignOut}>Sign Out</Nav.Link>
           </Nav>
