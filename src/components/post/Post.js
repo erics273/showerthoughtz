@@ -161,12 +161,12 @@ function Post(props) {
     <Card className="mb-3">
           <Card.Header style={{ backgroundColor: "wheat", fontFamily: "Luckiest Guy", fontSize: "20pt" }}>
        {props.thoughtshit.username}
-              <img style={{ marginLeft: 10 }} src={gravatarUrl} alt="Profile picture" />
+              <img style={{ marginLeft: 10, borderRadius: '50%' }} src={gravatarUrl} alt="Profile picture" />
       </Card.Header>
       <Card.Body>
         {/* the users post */}
-        <Card.Text > {props.thoughtshit.text}</Card.Text>
-        <Card.Text>
+        <Card.Text style={{ fontWeight: "bold" }}>{props.thoughtshit.text}</Card.Text>
+        <Card.Text style={{opacity:0.5 }} >
          {dateFormat(props.thoughtshit.createdAt)}
         </Card.Text>
         <div style={{ display: "inline-block" }}>
