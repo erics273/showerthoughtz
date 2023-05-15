@@ -7,7 +7,6 @@ import Showerdude from "../../logos/showerdude.jpg";
 import { FaHome } from "react-icons/fa";
 import { BsFillChatRightTextFill } from "react-icons/bs";
 import { TiMessages } from "react-icons/ti";
-
 import { connect } from "react-redux";
 import * as authActions from "../../redux/actions/auth";
 import { bindActionCreators } from "redux";

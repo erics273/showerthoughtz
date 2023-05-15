@@ -6,12 +6,15 @@ import { getUserName } from "../../utils/authHelper";
 import { Card, Button, Fade } from "react-bootstrap";
 import md5 from "md5";
 import { useParams } from "react-router-dom";
+import { BsHandThumbsUp } from "react-icons/bs";
+import { Link } from 'react-router-dom';
+// import { getUserGravatar } from "../../src/utils/authHelper";
+
+
 
 function Post(props) {
   let gravatarUrl = getUserGravatar(props.thoughtshit.username);
 
-  console.log("butts");
-  console.log(gravatarUrl);
 
   // Like button
   // const [likedByCurrentUser, setLikedByCurrentUser] = useState(false);
@@ -161,7 +164,9 @@ function Post(props) {
     <Card className="mb-3">
           <Card.Header style={{ backgroundColor: "wheat", fontFamily: "Luckiest Guy", fontSize: "20pt" }}>
        {props.thoughtshit.username}
+       <Link to="/profile">
               <img style={{ marginLeft: 10, borderRadius: '50%' }} src={gravatarUrl} alt="Profile picture" />
+              </Link>
       </Card.Header>
       <Card.Body>
         {/* the users post */}
@@ -170,11 +175,12 @@ function Post(props) {
          {dateFormat(props.thoughtshit.createdAt)}
         </Card.Text>
         <div style={{ display: "inline-block" }}>
-          <Button
+          <Button 
             variant={likedPost ? "primary" : "secondary"}
             onClick={likedPost ? handleUnlikeButtonClick : handleLikeButton}
           >
-            Likes:{props.thoughtshit.likes.length}
+            <BsHandThumbsUp style={{ marginRight: '5px' }} />
+           {props.thoughtshit.likes.length}
           </Button>
         </div>
       </Card.Body>
@@ -182,11 +188,10 @@ function Post(props) {
   );
 }
 
+
 export default Post;
 
 // *****Style*****
-// Fix Like Button, add thumbs up icon
-// fade the time format
 
 
 
