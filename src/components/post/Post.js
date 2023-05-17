@@ -185,9 +185,11 @@ function Post(props) {
   const likedPost = props.thoughtshit.likes.some(
     (like) => like.username === getUserName()
   );
-
+  console.log(gravatarUrl)
+  // console.log (gravatarUrl)
   const handleProfileClick = () => {
     setShowProfile(!showProfile);
+   
     console.log("CHANGED");
   };
 
@@ -292,6 +294,7 @@ function Post(props) {
         }}
       >
         {props.thoughtshit.username}
+
         <Link to="/profile" onClick={handleProfileClick}>
           <img
             style={{ marginLeft: 10, borderRadius: "50%" }}
@@ -320,17 +323,11 @@ function Post(props) {
       {showProfile && (
         <Profile
           gravatarUrlProp={gravatarUrl}
-          username={props.thoughtshit.username}
+          // username={props.thoughtshit.username}
         />
       )}
- 
-
     </Card>
-
-
   );
- 
-
 }
 
 export default Post;
