@@ -1,9 +1,8 @@
-
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-
+import Showerlogin from "../../logos/Showerlogin.png";
 import { connect } from "react-redux";
 import * as authActions from "../../redux/actions/auth";
 import { bindActionCreators } from "redux";
@@ -27,7 +26,7 @@ function Login(props) {
     setFormData(updatedFormData);
   };
 
- let handleSubmit = async (event) => {
+  let handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
@@ -58,8 +57,20 @@ function Login(props) {
     <div className="Login container">
       {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 
-      <h2 className="text-center">
-        ShowerThoughtz (another social media page)
+      {/* Showerthoughts title */}
+      <h2
+        className="text-center"
+        style={{
+          fontFamily: "Luckiest Guy",
+          backgroundColor: "wheat",
+          fontSize: "50pt",
+        }}
+      >
+<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  <img src={Showerlogin} width="100px" style={{ marginRight: 10 }} alt="Left Image" />
+  <span style={{ fontWeight: 'bold' }}>Log in</span>
+  <img src={Showerlogin} width="100px" style={{ marginLeft: 10 }} alt="Right Image" />
+</div>
       </h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="username">
@@ -105,7 +116,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
-
-
-
-

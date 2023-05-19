@@ -172,8 +172,7 @@
 // Use "create a user in the API"
 
 import React, { useState } from "react";
-import { generateAuthHeader, getUserGravatar } from "../../utils/authHelper";
-import { getUserName } from "../../utils/authHelper";
+import { generateAuthHeader, getUserGravatar, getUserName } from "../../utils/authHelper";
 import { Card, Button } from "react-bootstrap";
 import { BsHandThumbsUp } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -295,11 +294,11 @@ function Post(props) {
       >
         {props.thoughtshit.username}
 
-        <Link to="/profile" onClick={handleProfileClick}>
+        <Link to={`/profile/${props.thoughtshit.username}`} onClick={handleProfileClick}>
           <img
             style={{ marginLeft: 10, borderRadius: "50%" }}
-            src={gravatarUrl}
-            alt="Profile picture"
+            // src={gravatarUrl}
+            src={gravatarUrl} alt="Profile Picture"
           />
         </Link>
       </Card.Header>
@@ -322,7 +321,8 @@ function Post(props) {
       </Card.Body>
       {showProfile && (
         <Profile
-          gravatarUrlProp={gravatarUrl}
+        gravatarUrl={gravatarUrl}
+        username={props.thoughtshit.username}
           // username={props.thoughtshit.username}
         />
       )}

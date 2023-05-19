@@ -30,7 +30,7 @@ function App() {
           component={Post}
         />
         <Route
-          path="/profile"
+          path="/profile/:username"
           component={Profile}
         />
         <Route
