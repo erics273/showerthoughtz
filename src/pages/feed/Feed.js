@@ -3,6 +3,7 @@ import mustBeAuthenticated from "../../redux/hoc/mustBeAuthenticated";
 import Header from "../../components/header/Header";
 import PostForm from "../../components/postForm/PostForm";
 import PostFeed from "../../components/postFeed/PostFeed";
+import Profile from "../../pages/Profile/Profile"
 import { generateAuthHeader } from "../../utils/authHelper";
 
 
@@ -56,7 +57,7 @@ function Feed(props) {
         <div className="container">
           <h2></h2>
           <PostForm getPostsProp={getPosts}  />
-          <PostFeed shitposts={posts} getPostsProp={getPosts}   />
+          <PostFeed shitposts={posts} getPostsProp={getPosts} />
         </div>
       </div>
     );

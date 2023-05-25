@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { getUserGravatar, getUserLikes, getUserName } from "../../utils/authHelper";
+import { getUserGravatar, getUserLikes, getUserName, generateAuthHeader } from "../../utils/authHelper";
 import Header from "../../components/header/Header";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
@@ -8,34 +8,51 @@ import md5 from "md5";
 const Profile = () => {
   const { username} = useParams();
  
-  const [numLikes, setNumLikes] = useState(0);
+  const [numLikes, setNumLikes] = useState([]);
   const gravatarUrlProfilePic = getUserGravatar(username);
   const profileUserName = getUserName(username);
-  const numUserLikes = getUserLikes(numLikes)
+  
 
 
-  const fetchLikes = async () => {
+  const getNumUserLikes = async () => {
     try {
-      const response = await fetch(`/api/users/${username}/posts`);
-      const data = await response.json();
-  
-      let totalLikes = 0;
-  
-      data.forEach((post) => {
-        if (post.user === username && post.likes) {
-          totalLikes += post.likes.length;
-        }
+      let response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts`, {
+        headers: {
+          method: "GET",
+          "Content-Type": "application/json",
+          ...generateAuthHeader(),
+        },
       });
   
-      setNumLikes(totalLikes);
+      console.log(response);
+  
+      let data = await response.json();
+      data.reverse();
+      setNumLikes(data);
+  
+      console.log("You got posts:", data);
+  
+      const username = profileUserName
+      const totalLikes = data.reduce((count, post) => {
+        if (post.user === username && post.likes) {
+          return count + post.likes.length;
+        }
+        return count;
+      }, 0);
+  
+      console.log("Total likes:", totalLikes);
     } catch (error) {
-      console.error("Error fetching likes:", error);
+      console.error("Error:", error);
     }
   };
+  
   useEffect(() => {
-    fetchLikes();
-  }, [username]);
+    getNumUserLikes();
+    console.log("getNumUserLikes successful");
+  }, []);
+  
 
+  
   console.log(username);
   console.log(gravatarUrlProfilePic);
   console.log(profileUserName);
@@ -63,7 +80,7 @@ const Profile = () => {
             <Col md={8}>
               <h2>{profileUserName}</h2>
               <p>This is a bio page</p>
-              <p>Likes:{numLikes}</p>
+              <p>Likes:{getNumUserLikes}</p>
               <Button variant="primary">Edit Profile</Button>
             </Col>
           </Row>
