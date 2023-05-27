@@ -154,8 +154,6 @@ function Post(props) {
         username={props.thoughtshit.username}
         numLikes={props.thoughtshit.likes.length}
         getPostsProp={props.getPostsProp}
-        // numPosts={props.thoughtshit.numPosts}
-          // username={props.thoughtshit.username}
         />
       )}
     </Card>

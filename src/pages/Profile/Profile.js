@@ -1,4 +1,6 @@
-import React, {useEffect, useState} from "react";
+
+
+import React, { useEffect, useState } from "react";
 import { getUserGravatar, getUserLikes, getUserName, generateAuthHeader } from "../../utils/authHelper";
 import Header from "../../components/header/Header";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
@@ -6,61 +8,72 @@ import { useParams } from "react-router-dom";
 import md5 from "md5";
 
 const Profile = () => {
-  const { username} = useParams();
- 
+  const { username } = useParams();
   const [numLikes, setNumLikes] = useState([]);
+  const [numPosts, setNumPosts] = useState([]);
   const gravatarUrlProfilePic = getUserGravatar(username);
   const profileUserName = getUserName(username);
-  
 
 
-  const getNumUserLikes = async () => {
+  // ********Getting specific users posts********
+
+  const getNumUserPosts = async () => {
     try {
-      let response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts`, {
+      let response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts?username=${username}`, {
         headers: {
           method: "GET",
           "Content-Type": "application/json",
           ...generateAuthHeader(),
         },
       });
-  
+
       console.log(response);
-  
+
       let data = await response.json();
-      data.reverse();
-      setNumLikes(data);
-  
-      console.log("You got posts:", data);
-  
-      const username = profileUserName
-      const totalLikes = data.reduce((count, post) => {
-        if (post.user === username && post.likes) {
-          return count + post.likes.length;
-        }
-        return count;
-      }, 0);
-  
-      console.log("Total likes:", totalLikes);
+      setNumPosts(data);
+
+      console.log("Here are " + username + " posts:", data);
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+// ********Getting specific users likes********
+
+  const getNumUserLikes = async () => {
+    try {
+      let response = await fetch(`${process.env.REACT_APP_API_URL}/api/likes?username=${username}`, {
+        headers: {
+          method: "GET",
+          "Content-Type": "application/json",
+          ...generateAuthHeader(),
+        },
+      });
+
+      console.log(response);
+
+      let data = await response.json();
+      setNumLikes(data);
+
+      console.log("Here are " + username + " likes:", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getNumUserPosts();
+    console.log("getNumUserPosts successful");
+  }, []);
   
   useEffect(() => {
     getNumUserLikes();
     console.log("getNumUserLikes successful");
   }, []);
-  
 
-  
   console.log(username);
   console.log(gravatarUrlProfilePic);
-  console.log(profileUserName);
-  // console.log(fetchLikes)
-
-
-
-  
+  console.log("numLikes:", numLikes);
 
   return (
     <>
@@ -78,9 +91,10 @@ const Profile = () => {
               />
             </Col>
             <Col md={8}>
-              <h2>{profileUserName}</h2>
+              <h2>{username}</h2>
               <p>This is a bio page</p>
-              <p>Likes:{getNumUserLikes}</p>
+              <p>Likes: {numLikes.length}</p>
+              <p>Posts: {numPosts.length}</p>
               <Button variant="primary">Edit Profile</Button>
             </Col>
           </Row>
@@ -91,12 +105,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
-
-// ********************
-
-// 5/23
-
-
-// Trying to get the total amount of likes for a user to display on their profile
