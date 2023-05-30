@@ -6,13 +6,14 @@ import Showerlogin from "../../logos/Showerlogin.png";
 import { connect } from "react-redux";
 import * as authActions from "../../redux/actions/auth";
 import { bindActionCreators } from "redux";
-
+import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import APIService from "../../apiService";
 import { Redirect, withRouter, Link } from "react-router-dom";
 
 function Login(props) {
   let [errorMessage, setErrorMessage] = useState(null);
   let [success, setSuccess] = useState(false);
+  let [showPassword, setShowPassword] = useState(false); // New state variable
   let [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -48,6 +49,11 @@ function Login(props) {
     }
   };
 
+  // ***Show password thang***
+  let togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   if (success) {
     let params = new URLSearchParams(props.location.search);
     let redirect = params.get("redirect");
@@ -66,11 +72,27 @@ function Login(props) {
           fontSize: "50pt",
         }}
       >
-<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-  <img src={Showerlogin} width="100px" style={{ marginRight: 10 }} alt="Left Image" />
-  <span style={{ fontWeight: 'bold' }}>Log in</span>
-  <img src={Showerlogin} width="100px" style={{ marginLeft: 10 }} alt="Right Image" />
-</div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            src={Showerlogin}
+            width="100px"
+            style={{ marginRight: 10 }}
+            alt="Left Image"
+          />
+          <span style={{ fontWeight: "bold" }}>Log in</span>
+          <img
+            src={Showerlogin}
+            width="100px"
+            style={{ marginLeft: 10 }}
+            alt="Right Image"
+          />
+        </div>
       </h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="username">
@@ -88,9 +110,26 @@ function Login(props) {
           <Form.Control
             onChange={handleChange}
             value={formData.password}
-            type="password"
+            type={showPassword ? "text" : "password"} // Show password as plain text when showPassword is true
             placeholder="Password"
           />
+          <Form.Text  style={{ cursor: "pointer",  fontSize: "90%" ,opacity: 0.5}}>
+            {showPassword ? (
+              <BsEyeSlashFill
+                onClick={togglePasswordVisibility}
+                style={{ cursor: "pointer", fontSize: "125%"}}
+              />
+            ) : (
+              <BsEyeFill
+                onClick={togglePasswordVisibility}
+                style={{ cursor: "pointer", fontSize: "125%"  }}
+
+              />
+            )}
+            {/* Eye icons for toggling password visibility */}
+            {showPassword ? "Hide password" : "Show password"}
+            
+          </Form.Text>
         </Form.Group>
         <Button variant="primary" type="submit">
           Submit
