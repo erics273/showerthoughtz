@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { generateAuthHeader, getUserGravatar, getUserLikes, getUserName } from "../../utils/authHelper";
+import { generateAuthHeader, getUserGravatar, getUserName } from "../../utils/authHelper";
 import { Card, Button } from "react-bootstrap";
 import { BsHandThumbsUp } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -12,7 +12,7 @@ function Post(props) {
   const likedPost = props.thoughtshit.likes.some(
     (like) => like.username === getUserName()
   );
- const numLikes= props.thoughtshit.likes.length
+ const numLikes= props.thoughtshit.likes
 
   console.log(gravatarUrl)
   // console.log (gravatarUrl)
@@ -152,8 +152,8 @@ function Post(props) {
         <Profile
         gravatarUrl={gravatarUrl}
         username={props.thoughtshit.username}
-        numLikes={props.thoughtshit.likes.length}
-        getPostsProp={props.getPostsProp}
+        numLikes={props.thoughtshit.likes}
+        // getPostsProp={props.getPostsProp}
         />
       )}
     </Card>

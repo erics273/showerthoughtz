@@ -12,7 +12,7 @@ const Profile = () => {
   const [numLikes, setNumLikes] = useState([]);
   const [numPosts, setNumPosts] = useState([]);
   const gravatarUrlProfilePic = getUserGravatar(username);
-  const profileUserName = getUserName(username);
+  // const profileUserName = getUserName(username);
 
 
   // ********Getting specific users posts********
@@ -41,24 +41,9 @@ const Profile = () => {
 // ********Getting specific users likes********
 
   const getNumUserLikes = async () => {
-    try {
-      let response = await fetch(`${process.env.REACT_APP_API_URL}/api/likes?username=${username}`, {
-        headers: {
-          method: "GET",
-          "Content-Type": "application/json",
-          ...generateAuthHeader(),
-        },
-      });
 
-      console.log(response);
+// ****************We ar not using an API call, use getNumUserPosts and use the data from THAT!!*********
 
-      let data = await response.json();
-      setNumLikes(data);
-
-      console.log("Here are " + username + " likes:", data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
   };
 
   useEffect(() => {
@@ -71,9 +56,9 @@ const Profile = () => {
     console.log("getNumUserLikes successful");
   }, []);
 
-  console.log(username);
-  console.log(gravatarUrlProfilePic);
-  console.log("numLikes:", numLikes);
+  // console.log(username);
+  // console.log(gravatarUrlProfilePic);
+  // console.log("numLikes:", numLikes);
 
   return (
     <>
@@ -93,7 +78,7 @@ const Profile = () => {
             <Col md={8}>
               <h2>{username}</h2>
               <p>This is a bio page</p>
-              <p>Likes: {numLikes.length}</p>
+              {/* <p>Likes: {numLikes.length}</p> */}
               <p>Posts: {numPosts.length}</p>
               <Button variant="primary">Edit Profile</Button>
             </Col>
