@@ -49,18 +49,18 @@ export function getUserGravatar(username) {
     return "https://en.gravatar.com/avatar/" + hash +  "?d=mp"
 }
 
-export function getUserLikes(){
+// export function getUserLikes(){
 
-    let auth = localStorage.getItem("auth")
+//     let auth = localStorage.getItem("auth")
 
-    if(auth){
-        auth = JSON.parse(auth)
-        if(auth.token){
-            return auth.likes;
-        }
-        return false
-      }
+//     if(auth){
+//         auth = JSON.parse(auth)
+//         if(auth.token){
+//             return auth.likes;
+//         }
+//         return false
+//       }
 
-}
+// }
 
     

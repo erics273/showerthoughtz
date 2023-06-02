@@ -9,8 +9,8 @@ import md5 from "md5";
 
 const Profile = () => {
   const { username } = useParams();
-  const [numLikes, setNumLikes] = useState([]);
   const [numPosts, setNumPosts] = useState([]);
+  const [numLikes, setNumLikes] = useState(0);
   const gravatarUrlProfilePic = getUserGravatar(username);
   // const profileUserName = getUserName(username);
 
@@ -40,25 +40,30 @@ const Profile = () => {
 
 // ********Getting specific users likes********
 
-  const getNumUserLikes = async () => {
-
-// ****************We ar not using an API call, use getNumUserPosts and use the data from THAT!!*********
-
-  };
 
   useEffect(() => {
     getNumUserPosts();
     console.log("getNumUserPosts successful");
   }, []);
-  
-  useEffect(() => {
-    getNumUserLikes();
-    console.log("getNumUserLikes successful");
-  }, []);
 
+
+
+  // *** Calculate total likes ***
+  useEffect(() => {
+    let totalLikes = 0;
+
+    numPosts.forEach((post) => {
+      totalLikes += post.likes.length;
+    });
+
+    setNumLikes(totalLikes);
+  }, [numPosts]);
+
+  // ********************************
+  
   // console.log(username);
   // console.log(gravatarUrlProfilePic);
-  // console.log("numLikes:", numLikes);
+  console.log("Likes:", numPosts);
 
   return (
     <>
@@ -78,7 +83,7 @@ const Profile = () => {
             <Col md={8}>
               <h2>{username}</h2>
               <p>This is a bio page</p>
-              {/* <p>Likes: {numLikes.length}</p> */}
+              <p>Likes: {numLikes}</p>
               <p>Posts: {numPosts.length}</p>
               <Button variant="primary">Edit Profile</Button>
             </Col>

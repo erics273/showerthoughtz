@@ -15,7 +15,6 @@ function Post(props) {
  const numLikes= props.thoughtshit.likes
 
   console.log(gravatarUrl)
-  // console.log (gravatarUrl)
   const handleProfileClick = () => {
     setShowProfile(!showProfile);
     console.log("CHANGED");
@@ -152,8 +151,7 @@ function Post(props) {
         <Profile
         gravatarUrl={gravatarUrl}
         username={props.thoughtshit.username}
-        numLikes={props.thoughtshit.likes}
-        // getPostsProp={props.getPostsProp}
+        // numLikes={props.thoughtshit.likes}
         />
       )}
     </Card>
