@@ -61,14 +61,14 @@ return (
         {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
 
-        <h2 className="text-center">Post something</h2>
+        <h2 className="Luckyguy" >Post something</h2>
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="text">
                 <Form.Label></Form.Label>
                 <Form.Control onChange={handleChange} autoFocus value={postData.text} type="text" placeholder="Whatcha thinkin?" required minLength="3" maxLength="255" />
             </Form.Group>
 
-            <Button variant="primary" type="submit" style={{ marginBottom: '20px' }}>
+            <Button variant="primary" type="submit"  className="Luckyguy" style={{fontSize: "20pt", marginBottom: "20pt" }}>
                 Submit
             </Button>
            

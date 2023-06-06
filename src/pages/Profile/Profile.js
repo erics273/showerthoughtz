@@ -12,6 +12,7 @@ const Profile = () => {
   const [numPosts, setNumPosts] = useState([]);
   const [numLikes, setNumLikes] = useState(0);
   const gravatarUrlProfilePic = getUserGravatar(username);
+  const [bio, setBio] = useState("");
   // const profileUserName = getUserName(username);
 
 
@@ -31,6 +32,7 @@ const Profile = () => {
 
       let data = await response.json();
       setNumPosts(data);
+      setBio(data.bio);
 
       console.log("Here are " + username + " posts:", data);
     } catch (error) {
@@ -43,6 +45,7 @@ const Profile = () => {
 
   useEffect(() => {
     getNumUserPosts();
+    // getUserBio(); // Fetch the user's bio
     console.log("getNumUserPosts successful");
   }, []);
 
@@ -73,16 +76,16 @@ const Profile = () => {
         <Container className="mt-3" style={{ textAlign: "center" }}>
           <Row>
             <Col md={4}>
-              <Image
+              <Image 
                 src={gravatarUrlProfilePic}
                 roundedCircle
                 fluid
                 style={{ width: "200px", height: "200px" }}
               />
             </Col>
-            <Col md={8}>
+            <Col className="Luckyguy" md={8}>
               <h2>{username}</h2>
-              <p>This is a bio page</p>
+              <p>{bio}This is a bio page</p>
               <p>Likes: {numLikes}</p>
               <p>Posts: {numPosts.length}</p>
               <Button variant="primary">Edit Profile</Button>
@@ -90,6 +93,7 @@ const Profile = () => {
           </Row>
         </Container>
       </div>
+      
     </>
   );
 };
