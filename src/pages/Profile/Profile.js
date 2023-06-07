@@ -6,6 +6,7 @@ import Header from "../../components/header/Header";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import md5 from "md5";
+import Users from "../../components/users/Users";
 
 const Profile = () => {
   const { username } = useParams();
@@ -71,6 +72,7 @@ const Profile = () => {
   return (
     <>
       <Header />
+      {/* <Users /> */}
 
       <div className="d-flex justify-content-center">
         <Container className="mt-3" style={{ textAlign: "center" }}>
