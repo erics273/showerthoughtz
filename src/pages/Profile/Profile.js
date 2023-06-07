@@ -101,3 +101,14 @@ const Profile = () => {
 };
 
 export default Profile;
+
+
+
+// Need a Put request to update user
+// ability to change full name and bio.
+
+// conditional send password. (only send if if they filled out something)
+
+// Edit page shares similarities to the register page.
+
+// about is bio
