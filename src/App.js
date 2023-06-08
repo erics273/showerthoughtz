@@ -6,6 +6,7 @@ import NotFound from "./pages/notFound/NotFound";
 import Registration from "./pages/registration/Registration";
 import Post from "./components/post/Post";
 import Profile from "./pages/Profile/Profile.js";
+import Update from "./pages/Update/Update.js";
 
 
 function App() {
@@ -32,6 +33,10 @@ function App() {
         <Route
           path="/profile/:username"
           component={Profile}
+         />
+          <Route
+          path="/update"
+          component={Update}
         />
         <Route
           path="*"

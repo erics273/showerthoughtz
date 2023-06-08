@@ -5,8 +5,12 @@ import { getUserGravatar, getUserLikes, getUserName, generateAuthHeader } from "
 import Header from "../../components/header/Header";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import md5 from "md5";
-import Users from "../../components/users/Users";
+import { Link } from "react-router-dom";
+import Update from "../../pages/Update/Update.js";
+
+
+
+
 
 const Profile = () => {
   const { username } = useParams();
@@ -14,7 +18,6 @@ const Profile = () => {
   const [numLikes, setNumLikes] = useState(0);
   const gravatarUrlProfilePic = getUserGravatar(username);
   const [bio, setBio] = useState("");
-  // const profileUserName = getUserName(username);
 
 
   // ********Getting specific users posts********
@@ -90,8 +93,11 @@ const Profile = () => {
               <p>{bio}This is a bio page</p>
               <p>Likes: {numLikes}</p>
               <p>Posts: {numPosts.length}</p>
-              <Button variant="primary">Edit Profile</Button>
-            </Col>
+              {/* <Link to={`/profile/${username}/update`} onClick={<Update />}>
+        
+        </Link> */}
+            <Button as={Link} to="/Update" variant="primary">Edit Profile</Button>
+             </Col>
           </Row>
         </Container>
       </div>
