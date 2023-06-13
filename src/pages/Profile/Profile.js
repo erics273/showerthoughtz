@@ -1,36 +1,40 @@
-
-
 import React, { useEffect, useState } from "react";
-import { getUserGravatar, getUserLikes, getUserName, generateAuthHeader } from "../../utils/authHelper";
+import {
+  getUserGravatar,
+  getUserLikes,
+  getUserName,
+  generateAuthHeader,
+} from "../../utils/authHelper";
 import Header from "../../components/header/Header";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import Update from "../../pages/Update/Update.js";
 
-
-
-
-
 const Profile = () => {
+  const history = useHistory();
   const { username } = useParams();
   const [numPosts, setNumPosts] = useState([]);
   const [numLikes, setNumLikes] = useState(0);
   const gravatarUrlProfilePic = getUserGravatar(username);
   const [bio, setBio] = useState("");
 
-
   // ********Getting specific users posts********
 
-  const getNumUserPosts = async () => {
+  const getNumUserPosts = async (props) => {
     try {
-      let response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts?username=${username}`, {
-        headers: {
-          method: "GET",
-          "Content-Type": "application/json",
-          ...generateAuthHeader(),
-        },
-      });
+      let response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/posts?username=${username}`,
+        {
+          headers: {
+            method: "GET",
+            "Content-Type": "application/json",
+            ...generateAuthHeader(),
+          },
+        }
+      );
 
       console.log(response);
 
@@ -44,16 +48,40 @@ const Profile = () => {
     }
   };
 
-// ********Getting specific users likes********
 
+  const getUser = async () => {
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/users/${username}`,
+        {
+          headers: {
+            method: "GET",
+            "Content-Type": "application/json",
+            ...generateAuthHeader(),
+          },
+        }
+      );
+
+      console.log(response);
+
+      let data = await response.json();
+   ;
+
+      console.log("Here is the user: ", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  
+
+  // ********Getting specific users likes********
 
   useEffect(() => {
     getNumUserPosts();
+    getUser()
     // getUserBio(); // Fetch the user's bio
     console.log("getNumUserPosts successful");
   }, []);
-
-
 
   // *** Calculate total likes ***
   useEffect(() => {
@@ -67,9 +95,9 @@ const Profile = () => {
   }, [numPosts]);
 
   // ********************************
-  
-  // console.log(username);
+
   // console.log(gravatarUrlProfilePic);
+  console.log(username)
   console.log("Likes:", numPosts);
 
   return (
@@ -81,7 +109,7 @@ const Profile = () => {
         <Container className="mt-3" style={{ textAlign: "center" }}>
           <Row>
             <Col md={4}>
-              <Image 
+              <Image
                 src={gravatarUrlProfilePic}
                 roundedCircle
                 fluid
@@ -90,25 +118,24 @@ const Profile = () => {
             </Col>
             <Col className="Luckyguy" md={8}>
               <h2>{username}</h2>
-              <p>{bio}This is a bio page</p>
+              <p>{bio}This is a bio for Patrick</p>
               <p>Likes: {numLikes}</p>
               <p>Posts: {numPosts.length}</p>
               {/* <Link to={`/profile/${username}/update`} onClick={<Update />}>
         
         </Link> */}
-            <Button as={Link} to="/Update" variant="primary">Edit Profile</Button>
-             </Col>
+              <Button as={Link} to={`/update/${username}`} variant="primary">
+                Edit Profile
+              </Button>
+            </Col>
           </Row>
         </Container>
       </div>
-      
     </>
   );
 };
 
 export default Profile;
-
-
 
 // Need a Put request to update user
 // ability to change full name and bio.
