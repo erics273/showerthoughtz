@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  getUserGravatar,
-  getUserLikes,
-  getUserName,
-  generateAuthHeader,
-} from "../../utils/authHelper";
+import { getUserGravatar, getUserLikes, getUserName, generateAuthHeader,} from "../../utils/authHelper";
 import Header from "../../components/header/Header";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
@@ -40,14 +35,13 @@ const Profile = () => {
 
       let data = await response.json();
       setNumPosts(data);
-      setBio(data.bio);
+      // setBio(data.bio);
 
       console.log("Here are " + username + " posts:", data);
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
 
   const getUser = async () => {
     try {
@@ -65,20 +59,19 @@ const Profile = () => {
       console.log(response);
 
       let data = await response.json();
-   ;
-
-      console.log("Here is the user: ", data);
+      let userBio = data.bio;
+      setBio(userBio); // Update the bio state with the user's bio
+      console.log("Here is the user bio:", userBio);
     } catch (error) {
       console.error("Error:", error);
     }
   };
-  
 
   // ********Getting specific users likes********
 
   useEffect(() => {
     getNumUserPosts();
-    getUser()
+    getUser();
     // getUserBio(); // Fetch the user's bio
     console.log("getNumUserPosts successful");
   }, []);
@@ -97,7 +90,7 @@ const Profile = () => {
   // ********************************
 
   // console.log(gravatarUrlProfilePic);
-  console.log(username)
+  console.log(username);
   console.log("Likes:", numPosts);
 
   return (
@@ -118,12 +111,9 @@ const Profile = () => {
             </Col>
             <Col className="Luckyguy" md={8}>
               <h2>{username}</h2>
-              <p>{bio}This is a bio for Patrick</p>
+              <p>{bio}</p>
               <p>Likes: {numLikes}</p>
               <p>Posts: {numPosts.length}</p>
-              {/* <Link to={`/profile/${username}/update`} onClick={<Update />}>
-        
-        </Link> */}
               <Button as={Link} to={`/update/${username}`} variant="primary">
                 Edit Profile
               </Button>
