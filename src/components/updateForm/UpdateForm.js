@@ -9,7 +9,7 @@ function UpdateForm() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [formData, setFormData] = useState({
     fullName: "",
-    bio: "",
+    bio:"",
   });
 
   const handleChange = (event) => {
@@ -66,7 +66,7 @@ function UpdateForm() {
             onChange={handleChange}
             value={formData.bio}
             type="text"
-            placeholder="Why aren't you telling me anything"
+            placeholder="Tell me something"
           />
         </Form.Group>
 

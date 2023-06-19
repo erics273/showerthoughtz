@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-import Update from "../../pages/Update/Update.js";
 
 const Profile = () => {
   const history = useHistory();
@@ -17,6 +16,8 @@ const Profile = () => {
   const [bio, setBio] = useState("");
 
   // ********Getting specific users posts********
+
+  
 
   const getNumUserPosts = async (props) => {
     try {
@@ -121,6 +122,7 @@ const Profile = () => {
           </Row>
         </Container>
       </div>
+      
     </>
   );
 };
@@ -135,3 +137,6 @@ export default Profile;
 // Edit page shares similarities to the register page.
 
 // about is bio
+
+// *************************************
+
