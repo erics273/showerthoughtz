@@ -1,9 +1,10 @@
 
 import React, { useState } from "react";
+import { generateAuthHeader, getUserGravatar, getUserName } from "../../utils/authHelper";
 import { withRouter, useHistory, useParams } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 
-function UpdateForm() {
+function UpdateForm(onClose) {
   const history = useHistory();
   const { username } = useParams();
   const [errorMessage, setErrorMessage] = useState(null);
@@ -25,6 +26,7 @@ function UpdateForm() {
         method: "PUT", // Use PUT method for update
         headers: {
           "Content-Type": "application/json",
+          ...generateAuthHeader(),
         },
         body: JSON.stringify(formData),
       });
@@ -35,7 +37,8 @@ function UpdateForm() {
 
       // Redirect back to the profile page
       history.push(`/profile/${username}`);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error(error.message);
       setErrorMessage("Update failed!");
     }
@@ -48,7 +51,7 @@ function UpdateForm() {
     <div className="UpdateForm container">
       {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 
-      <h2 className="Luckyguy"> Update{username}</h2>
+      <h2 className="Luckyguy"> Update {username}</h2>
       <Form className="Luckyguy">
         <Form.Group controlId="fullName">
           <Form.Label>Full Name</Form.Label>
@@ -72,6 +75,9 @@ function UpdateForm() {
 
         <Button onClick={handleSubmit}  style={{ color: "black" }} variant="primary" type="submit">
           Update
+        </Button>
+        <Button onClick={onClose} variant="secondary" type="button">
+          Cancel
         </Button>
       </Form>
     </div>

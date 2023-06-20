@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { getUserGravatar, getUserLikes, getUserName, generateAuthHeader,} from "../../utils/authHelper";
+import {getUserGravatar,getUserLikes, getUserName, generateAuthHeader,
+} from "../../utils/authHelper";
 import Header from "../../components/header/Header";
+import UpdateForm from "../../components/updateForm/UpdateForm";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-
 const Profile = () => {
-  const history = useHistory();
+  // const history = useHistory();
   const { username } = useParams();
+  const location = useLocation();
   const [numPosts, setNumPosts] = useState([]);
   const [numLikes, setNumLikes] = useState(0);
   const gravatarUrlProfilePic = getUserGravatar(username);
   const [bio, setBio] = useState("");
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
 
   // ********Getting specific users posts********
 
-  
+  const toggleUpdateForm = () => {
+    setShowUpdateForm((prevState) => !prevState);
+  };
 
   const getNumUserPosts = async (props) => {
     try {
@@ -97,7 +101,6 @@ const Profile = () => {
   return (
     <>
       <Header />
-      {/* <Users /> */}
 
       <div className="d-flex justify-content-center">
         <Container className="mt-3" style={{ textAlign: "center" }}>
@@ -115,14 +118,18 @@ const Profile = () => {
               <p>{bio}</p>
               <p>Likes: {numLikes}</p>
               <p>Posts: {numPosts.length}</p>
-              <Button as={Link} to={`/update/${username}`} variant="primary">
-                Edit Profile
-              </Button>
+              {location.pathname !== `/update/${username}` && (
+                <Button onClick={toggleUpdateForm} variant="primary">
+                  Edit Profile
+                </Button>
+              )}
+              {showUpdateForm && (
+                <UpdateForm username={username} onClose={toggleUpdateForm} />
+              )}
             </Col>
           </Row>
         </Container>
       </div>
-      
     </>
   );
 };
@@ -139,4 +146,3 @@ export default Profile;
 // about is bio
 
 // *************************************
-
