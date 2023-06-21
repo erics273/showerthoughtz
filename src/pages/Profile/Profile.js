@@ -279,3 +279,6 @@ const Profile = () => {
 };
 
 export default Profile;
+
+
+// Bio and fullname updates but it need to only update the user that is logged in.
