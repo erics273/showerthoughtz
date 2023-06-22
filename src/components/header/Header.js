@@ -33,6 +33,7 @@ function Header(props) {
       });
   };
 
+  
   let authLinks = "";
   if (props.isAuthenticated) {
     authLinks = (

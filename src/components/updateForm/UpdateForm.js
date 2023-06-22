@@ -1,6 +1,9 @@
-
 import React, { useState } from "react";
-import { generateAuthHeader, getUserGravatar, getUserName } from "../../utils/authHelper";
+import {
+  generateAuthHeader,
+  getUserGravatar,
+  getUserName,
+} from "../../utils/authHelper";
 import { withRouter, useParams } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 
@@ -20,24 +23,26 @@ function UpdateForm({ setBio }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${username}`, {
-        method: "PUT", // Use PUT method for update
-        headers: {
-          "Content-Type": "application/json",
-          ...generateAuthHeader(),
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/users/${username}`,
+        {
+          method: "PUT", // Use PUT method for update
+          headers: {
+            "Content-Type": "application/json",
+            ...generateAuthHeader(),
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.status < 200 || response.status > 299) {
         throw Error(response.statusText);
       }
 
-      // Update the bio state 
+      // Update the bio state
       setBio(formData.bio);
-
-      
     } catch (error) {
       console.error(error.message);
       setErrorMessage("Update failed!");
@@ -48,6 +53,8 @@ function UpdateForm({ setBio }) {
     <div className="UpdateForm container">
       {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 
+      <p></p>
+      <p></p>
       <h2 className="Luckyguy"> Update {username}</h2>
       <Form className="Luckyguy">
         <Form.Group controlId="fullName">
@@ -70,16 +77,17 @@ function UpdateForm({ setBio }) {
           />
         </Form.Group>
 
-        <Button onClick={handleSubmit} style={{ color: "black" }} variant="primary" type="submit">
+        <Button
+          onClick={handleSubmit}
+          style={{ color: "black" }}
+          variant="primary"
+          type="submit"
+        >
           Update
         </Button>
-        {/* <Button onClick={onClose} variant="secondary" type="button">
-          Cancel
-        </Button> */}
       </Form>
     </div>
   );
 }
 
 export default withRouter(UpdateForm);
-
