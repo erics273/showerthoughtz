@@ -65,10 +65,10 @@ function Header(props) {
         </Navbar.Brand>
         {/* ****homebutton**** */}
 
-        <Link to="/" className="homeIcon" style={{ fontSize: "3rem" }}>
+        <Link to="/feed" className="homeIcon" style={{ fontSize: "3rem" }}>
           <FaHome color="white" style={{marginBottom: '20px', marginRight: "20px" }} />
         </Link>
-        {/* *********** */}
+       
         <h3 className="postIcon">
           {" "}
 

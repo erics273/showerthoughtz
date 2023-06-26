@@ -7,13 +7,14 @@ import {
 import { withRouter, useParams } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 
-function UpdateForm({ setBio }) {
+function UpdateForm({ setBio, props}) {
   const { username } = useParams();
   const [errorMessage, setErrorMessage] = useState(null);
   const [formData, setFormData] = useState({
     fullName: "",
     bio: "",
   });
+  
 
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -22,7 +23,6 @@ function UpdateForm({ setBio }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
 
     try {
       const response = await fetch(
@@ -77,17 +77,21 @@ function UpdateForm({ setBio }) {
           />
         </Form.Group>
 
-        <Button
-          onClick={handleSubmit}
-          style={{ color: "black" }}
-          variant="primary"
-          type="submit"
-        >
-          Update
-        </Button>
+        
+          <Button
+            onClick={handleSubmit}
+            style={{ color: "black" }}
+            variant="primary"
+            type="submit"
+          >
+            Update
+          </Button>
+      
+       
       </Form>
     </div>
   );
 }
 
 export default withRouter(UpdateForm);
+

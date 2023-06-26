@@ -12,7 +12,7 @@ import UpdateForm from "../../components/updateForm/UpdateForm";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useParams, Link, useLocation } from "react-router-dom";
 
-const Profile = () => {
+const Profile = ({isAuthenticated}) => {
   const { username } = useParams();
   const location = useLocation();
   const [numPosts, setNumPosts] = useState([]);
@@ -119,7 +119,7 @@ const Profile = () => {
                   Edit Profile
                 </Button>
               )}
-              {showUpdateForm && <UpdateForm username={username} setBio={setBio} />}
+              {showUpdateForm && <UpdateForm username={username} setBio={setBio}  />}
             </Col>
           </Row>
         </Container>
