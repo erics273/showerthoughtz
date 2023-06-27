@@ -7,12 +7,12 @@ import {
 import { withRouter, useParams } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 
-function UpdateForm({ setBio, props}) {
-  const { username } = useParams();
+function UpdateForm({ userInfo, setBio}) {
+  const username  = userInfo.username;
   const [errorMessage, setErrorMessage] = useState(null);
   const [formData, setFormData] = useState({
-    fullName: "",
-    bio: "",
+    fullName: userInfo.fullName,
+    bio: userInfo.bio,
   });
   
 
@@ -44,8 +44,8 @@ function UpdateForm({ setBio, props}) {
       // Update the bio state
       setBio(formData.bio);
     } catch (error) {
-      console.error(error.message);
-      setErrorMessage("Update failed!");
+      console.error(error);
+      setErrorMessage(error.message);
     }
   };
 

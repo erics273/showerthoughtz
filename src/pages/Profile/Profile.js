@@ -11,6 +11,8 @@ import Header from "../../components/header/Header";
 import UpdateForm from "../../components/updateForm/UpdateForm";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useParams, Link, useLocation } from "react-router-dom";
+import mustBeAuthenticated from "../../redux/hoc/mustBeAuthenticated";
+
 
 const Profile = ({isAuthenticated}) => {
   const { username } = useParams();
@@ -20,6 +22,7 @@ const Profile = ({isAuthenticated}) => {
   const gravatarUrlProfilePic = getUserGravatar(username);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [userBio, setBio] = useState(""); 
+  const [userInfo, setUserInfo] = useState({})
 
   const toggleUpdateForm = () => {
     setShowUpdateForm((prevState) => !prevState);
@@ -62,6 +65,7 @@ const Profile = ({isAuthenticated}) => {
       );
 
       let data = await response.json();
+      setUserInfo(data)
       let userBio = data.bio;
       let userFullname = data.fullName;
       setBio(userBio); // Update the bio state with the user's bio
@@ -78,7 +82,7 @@ const Profile = ({isAuthenticated}) => {
     getNumUserPosts();
     getUser();
     console.log("getNumUserPosts successful");
-  }, []);
+  }, [userBio]);
 
   // *** Calculate total likes ***
   useEffect(() => {
@@ -96,7 +100,7 @@ const Profile = ({isAuthenticated}) => {
 
   return (
     <>
-      <Header />
+      <Header isAuthenticated={isAuthenticated} />
 
       <div className="d-flex justify-content-center">
         <Container className="mt-3" style={{ textAlign: "center" }}>
@@ -110,16 +114,15 @@ const Profile = ({isAuthenticated}) => {
               />
             </Col>
             <Col className="Luckyguy" md={8}>
-              <h2>{username}</h2>
-              <p>{userBio}</p>
+              <h2>{userInfo.username}</h2>
+              <p>{userInfo.bio}</p>
               <p>Likes: {numLikes}</p>
               <p>Posts: {numPosts.length}</p>
-              {location.pathname !== `/update/${username}` && (
                 <Button onClick={toggleUpdateForm} variant="primary">
                   Edit Profile
                 </Button>
-              )}
-              {showUpdateForm && <UpdateForm username={username} setBio={setBio}  />}
+              
+              {showUpdateForm && <UpdateForm userInfo={userInfo} setBio={setBio}  />}
             </Col>
           </Row>
         </Container>
@@ -128,7 +131,13 @@ const Profile = ({isAuthenticated}) => {
   );
 };
 
-export default Profile;
+export default mustBeAuthenticated (Profile);
 
 
 // Bio and fullname updates but it need to only update the user that is logged in.
+// Update success message????
+// Hide Edit button for non logged in user. compare username in URL to username that is logged in.
+// Display my own error message to non logged in user
+// ditch "setBio" and use the UserInfo. remember the useeffct dependansies array
+
+// change password?? dont send if not typed??

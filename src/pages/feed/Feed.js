@@ -8,7 +8,7 @@ import { generateAuthHeader } from "../../utils/authHelper";
 
 
 
-function Feed(props) {
+function Feed({isAuthenticated}) {
 
     let [posts, setPosts] = useState([])
 
@@ -53,7 +53,7 @@ function Feed(props) {
   
     return (
       <div className="Feed">
-        <Header isAuthenticated={props.isAuthenticated} />
+        <Header isAuthenticated={isAuthenticated} />
         <div className="container">
           <h2></h2>
           <PostForm getPostsProp={getPosts}  />
