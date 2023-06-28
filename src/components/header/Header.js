@@ -113,4 +113,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
 
 
-// 6/22/23 line 36 may have what is need as far as authenticating the user for updating the bio

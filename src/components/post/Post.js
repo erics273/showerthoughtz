@@ -161,7 +161,3 @@ function Post(props) {
 export default Post;
 
 
-// **********************/
-// Create a user profile page with the ability to update (edit profile)
-// On accessible by logging in
-// Use "create a user in the API"
