@@ -130,11 +130,11 @@ function Post(props) {
           />
         </Link>
       </Card.Header>
-      <Card.Body>
-        <Card.Text className="Luckyguy" style={{ fontSize:"120%"}}>
+      <Card.Body >
+        <Card.Text  className="Luckyguy" style={{ fontSize:"120%", }}>
           {props.thoughtshit.text}
         </Card.Text>
-        <Card.Text style={{ opacity: 0.5 }}>
+        <Card.Text>
           {dateFormat(props.thoughtshit.createdAt)}
         </Card.Text>
         <div style={{ display: "inline-block" }}>
