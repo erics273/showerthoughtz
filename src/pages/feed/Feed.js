@@ -5,6 +5,7 @@ import PostForm from "../../components/postForm/PostForm";
 import PostFeed from "../../components/postFeed/PostFeed";
 import Profile from "../../pages/Profile/Profile"
 import { generateAuthHeader } from "../../utils/authHelper";
+import stBackground from "../../logos/stBackground.jpg" 
 
 
 
@@ -52,9 +53,19 @@ function Feed({isAuthenticated}) {
 
   
     return (
-      <div className="Feed">
+      <div className="Feed"
+      style={{
+        backgroundImage: `url(${stBackground})`,
+        backgroundPosition: "cover",
+        backgroundSize: "100%",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+     }}>
+         
         <Header isAuthenticated={isAuthenticated} />
         <div className="container">
+     
+     
           <h2></h2>
           <PostForm getPostsProp={getPosts}  />
           <PostFeed shitposts={posts} getPostsProp={getPosts} />

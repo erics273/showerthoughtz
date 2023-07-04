@@ -62,10 +62,10 @@ return (
 
 
         <h2 className="Luckyguy" >Post something</h2>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="Luckyguy" >
             <Form.Group controlId="text">
-                <Form.Label></Form.Label>
-                <Form.Control onChange={handleChange} autoFocus value={postData.text} type="text" placeholder="Whatcha thinkin?" required minLength="3" maxLength="255" />
+                <Form.Label ></Form.Label>
+                <Form.Control  onChange={handleChange} autoFocus value={postData.text} type="text" placeholder="Whatcha thinkin?" required minLength="3" maxLength="255" />
             </Form.Group>
 
             <Button variant="primary" type="submit"  className="Luckyguy" style={{fontSize: "20pt", marginBottom: "20pt" }}>

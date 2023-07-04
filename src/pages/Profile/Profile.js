@@ -47,7 +47,7 @@ const getTotalLikes = (posts) => {
   };
 
 
-  // new auth stuff for Edit profile
+  // new auth stuff for Edit profile button
   const isUserAuthenticated = isAuthenticated();
   const loggedInUsername = getUserName();
 
@@ -155,7 +155,8 @@ export default mustBeAuthenticated(Profile);
 
 
 
-
+// Bio and fullname updates but it need to only update the user that is logged in.
+// Hide Edit button for non logged in user. compare username in URL to username that is logged in.
 // Display my own error message to non logged in user
 // ditch "setBio" and use the UserInfo. remember the useeffct dependansies array
 // Update profile in real time without having to refresh
