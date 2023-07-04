@@ -13,6 +13,7 @@ import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useParams, Link, useLocation } from "react-router-dom";
 import mustBeAuthenticated from "../../redux/hoc/mustBeAuthenticated";
 import { isAuthenticated } from "../../utils/authHelper";
+import UpdatePasswordForm from "../../components/updatepasswordForm/UpdatePasswordForm";
 
 const Profile = () => {
   const { username } = useParams();
@@ -23,10 +24,28 @@ const Profile = () => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [userBio, setBio] = useState("");
   const [userInfo, setUserInfo] = useState({});
+  const [showUpdatePasswordForm, setShowUpdatePasswordForm] = useState(false);
 
+// ****Form toggles****
   const toggleUpdateForm = () => {
     setShowUpdateForm((prevState) => !prevState);
   };
+
+  const toggleUpdatePasswordForm = () => {
+    setShowUpdatePasswordForm((prevState) => !prevState);
+  };
+// ****End of Form toggles****
+  
+const getTotalLikes = (posts) => {
+    let totalLikes = 0;
+
+    posts.forEach((post) => {
+      totalLikes += post.likes.length;
+    });
+
+    return totalLikes;
+  };
+
 
   // new auth stuff for Edit profile
   const isUserAuthenticated = isAuthenticated();
@@ -59,27 +78,37 @@ const Profile = () => {
     }
   };
 
+
   const getNumUserPosts = async () => {
     try {
-      let response = await fetch(
+      const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/posts?username=${username}`,
         {
           headers: {
-            method: "GET",
             "Content-Type": "application/json",
             ...generateAuthHeader(),
           },
         }
       );
 
-      let data = await response.json();
-      setNumPosts(data);
+      if (response.ok) {
+        const data = await response.json();
+        setNumPosts(data);
+        setNumLikes(getTotalLikes(data)); // Calculate the total likes
+      } 
     } catch (error) {
       console.error("Error:", error);
     }
   };
+  
+  useEffect(() => {
+    getUser();
+    getNumUserPosts();
+  }, [username]);
+
 
   const isCurrentUser = loggedInUsername === username;
+  
 
   return (
     <>
@@ -107,9 +136,11 @@ const Profile = () => {
                   <Button onClick={toggleUpdateForm} variant="primary">
                     Edit Profile
                   </Button>
-                  {showUpdateForm && (
-                    <UpdateForm userInfo={userInfo} setBio={setBio} />
-                  )}
+                  <Button onClick={toggleUpdatePasswordForm} variant="primary">
+                    Update Password
+                  </Button>
+                  {showUpdateForm && <UpdateForm userInfo={userInfo} setBio={setBio} />}
+                  {showUpdatePasswordForm && <UpdatePasswordForm username={username} />}
                 </>
               )}
             </Col>
@@ -124,9 +155,9 @@ export default mustBeAuthenticated(Profile);
 
 
 
-// Bio and fullname updates but it need to only update the user that is logged in.
-// Hide Edit button for non logged in user. compare username in URL to username that is logged in.
+
 // Display my own error message to non logged in user
 // ditch "setBio" and use the UserInfo. remember the useeffct dependansies array
+// Update profile in real time without having to refresh
 
 // change password?? dont send if not typed??

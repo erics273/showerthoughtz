@@ -49,6 +49,8 @@ function UpdateForm({ userInfo, setBio}) {
     }
   };
 
+     
+
   return (
     <div className="UpdateForm container">
       {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}

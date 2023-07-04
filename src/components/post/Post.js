@@ -18,7 +18,7 @@ function Post(props) {
   const handleProfileClick = () => {
     setShowProfile(!showProfile);
     console.log("CHANGED");
-    console.log(numLikes)
+    console.log(numLikes.length)
   };
 
   const handleLikeButton = async (event) => {
