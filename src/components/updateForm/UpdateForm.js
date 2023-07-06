@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   generateAuthHeader,
   getUserGravatar,
@@ -7,7 +7,7 @@ import {
 import { withRouter, useParams } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 
-function UpdateForm({ userInfo, setBio}) {
+function UpdateForm({ userInfo}) {
   const username  = userInfo.username;
   const [errorMessage, setErrorMessage] = useState(null);
   const [formData, setFormData] = useState({
@@ -15,6 +15,13 @@ function UpdateForm({ userInfo, setBio}) {
     bio: userInfo.bio,
   });
   
+
+  useEffect(() => {
+    setFormData({
+      fullName: userInfo.fullName,
+      bio: userInfo.bio,
+    });
+  }, [userInfo]);
 
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -42,7 +49,9 @@ function UpdateForm({ userInfo, setBio}) {
       }
 
       // Update the bio state
-      setBio(formData.bio);
+      userInfo.fullName = formData.fullName;
+      userInfo.bio = formData.bio;
+      
     } catch (error) {
       console.error(error);
       setErrorMessage(error.message);
@@ -96,4 +105,5 @@ function UpdateForm({ userInfo, setBio}) {
 }
 
 export default withRouter(UpdateForm);
+
 

@@ -22,17 +22,19 @@ const Profile = () => {
   const [numLikes, setNumLikes] = useState(0);
   const gravatarUrlProfilePic = getUserGravatar(username);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [userBio, setBio] = useState("");
+  // const [userBio, setBio] = useState("");
   const [userInfo, setUserInfo] = useState({});
   const [showUpdatePasswordForm, setShowUpdatePasswordForm] = useState(false);
 
 // ****Form toggles****
   const toggleUpdateForm = () => {
     setShowUpdateForm((prevState) => !prevState);
+    console.log("toggled UpdateForm")
   };
 
   const toggleUpdatePasswordForm = () => {
     setShowUpdatePasswordForm((prevState) => !prevState);
+    console.log("toggled UpdatePasswordForm")
   };
 // ****End of Form toggles****
   
@@ -72,7 +74,7 @@ const getTotalLikes = (posts) => {
 
       let data = await response.json();
       setUserInfo(data);
-      setBio(data.bio);
+      // setBio(data.bio);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -139,7 +141,7 @@ const getTotalLikes = (posts) => {
                   <Button onClick={toggleUpdatePasswordForm} variant="primary">
                     Update Password
                   </Button>
-                  {showUpdateForm && <UpdateForm userInfo={userInfo} setBio={setBio} />}
+                  {showUpdateForm && <UpdateForm userInfo={userInfo} />}
                   {showUpdatePasswordForm && <UpdatePasswordForm username={username} />}
                 </>
               )}
@@ -155,10 +157,3 @@ export default mustBeAuthenticated(Profile);
 
 
 
-// Bio and fullname updates but it need to only update the user that is logged in.
-// Hide Edit button for non logged in user. compare username in URL to username that is logged in.
-// Display my own error message to non logged in user
-// ditch "setBio" and use the UserInfo. remember the useeffct dependansies array
-// Update profile in real time without having to refresh
-
-// change password?? dont send if not typed??
