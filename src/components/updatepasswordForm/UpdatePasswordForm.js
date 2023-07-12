@@ -20,6 +20,19 @@ function UpdatePasswordForm({ username }) {
   const handleSubmitPassword = async (event) => {
     event.preventDefault();
 
+    // Perform validation
+    if (
+      !passwordData.currentPassword ||
+      !passwordData.newPassword ||
+      !passwordData.confirmPassword
+    ) {
+      setPasswordErrorMessage("You didnt write anything...");
+      return; 
+      // Stop further execution
+    }else if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordErrorMessage("New password doesnt match the confirmed password");
+    } else 
+
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/users/${username}`,
@@ -30,11 +43,18 @@ function UpdatePasswordForm({ username }) {
             ...generateAuthHeader(),
           },
           body: JSON.stringify(passwordData),
+
+          currentPassword: "currentPassword123",
+          newPassword: "newPassword123",
+          confirmPassword: "newPassword123",
         }
       );
 
       console.log("Username:", username);
       console.log("Password data:", passwordData);
+      console.log("Current password:", passwordData.currentPassword);
+
+
 
       if (response.status < 200 || response.status > 299) {
         throw Error(response.statusText);
