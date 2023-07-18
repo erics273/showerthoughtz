@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { generateAuthHeader } from "../../utils/authHelper";
 import { Form, Button, Alert } from "react-bootstrap";
@@ -5,9 +6,9 @@ import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
 function UpdatePasswordForm({ username }) {
   const [passwordData, setPasswordData] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
+    password:username.password,
+    // newPassword: "",
+    // confirmPassword: "",
   });
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -26,12 +27,16 @@ function UpdatePasswordForm({ username }) {
       !passwordData.newPassword ||
       !passwordData.confirmPassword
     ) {
-      setPasswordErrorMessage("You didnt write anything...");
-      return; 
-      // Stop further execution
-    }else if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setPasswordErrorMessage("New password doesnt match the confirmed password");
-    } else 
+      setPasswordErrorMessage("You didn't fill out all fields.");
+      return;
+    } else if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordErrorMessage("New password doesn't match the confirmed password.");
+      return;
+    } 
+    // else if (passwordData.password !== passwordData.currentPassword) {
+    //   setPasswordErrorMessage("Current password iss WROONG");
+    //   return;
+    // }
 
     try {
       const response = await fetch(
@@ -42,24 +47,18 @@ function UpdatePasswordForm({ username }) {
             "Content-Type": "application/json",
             ...generateAuthHeader(),
           },
-          body: JSON.stringify(passwordData),
-
-          currentPassword: "currentPassword123",
-          newPassword: "newPassword123",
-          confirmPassword: "newPassword123",
+          body: JSON.stringify({ password: passwordData.newPassword }), // Send the new password in the "password" field
         }
       );
 
       console.log("Username:", username);
+      console.log("Actual password:", passwordData.password);
       console.log("Password data:", passwordData);
       console.log("Current password:", passwordData.currentPassword);
 
-
-
       if (response.status < 200 || response.status > 299) {
-        throw Error(response.statusText);
+        throw new Error("Password update failed.");
       }
-      console.log(username);
 
       // Clear the password fields
       setPasswordData({
@@ -67,9 +66,11 @@ function UpdatePasswordForm({ username }) {
         newPassword: "",
         confirmPassword: "",
       });
+      
+      setPasswordErrorMessage(null); // Reset error message on successful update
     } catch (error) {
       console.error(error);
-      setPasswordErrorMessage(error.message);
+      setPasswordErrorMessage("Password update failed. Please try again.");
     }
   };
 
@@ -91,7 +92,7 @@ function UpdatePasswordForm({ username }) {
           <Form.Control
             onChange={handlePasswordChange}
             value={passwordData.currentPassword}
-            type={showCurrentPassword ? "text" : "password"} // Show current password
+            type={showCurrentPassword ? "text" : "password"}
             placeholder="Enter your current password"
           />
           <Form.Text
@@ -108,7 +109,6 @@ function UpdatePasswordForm({ username }) {
                 style={{ cursor: "pointer", fontSize: "125%" }}
               />
             )}
-            {/* Eye icons for toggling current password visibility */}
             {showCurrentPassword ? "Hide" : "Show"}
           </Form.Text>
         </Form.Group>
@@ -139,7 +139,7 @@ function UpdatePasswordForm({ username }) {
           variant="primary"
           type="submit"
         >
-              Update Password
+          Update Password
         </Button>
       </Form>
     </div>
@@ -148,4 +148,7 @@ function UpdatePasswordForm({ username }) {
 
 export default UpdatePasswordForm;
 
+
+
 // Update password does not successfully update yet
+// Use Postman

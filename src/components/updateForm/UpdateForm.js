@@ -58,7 +58,6 @@ function UpdateForm({ userInfo}) {
     }
   };
 
-     
 
   return (
     <div className="UpdateForm container">
