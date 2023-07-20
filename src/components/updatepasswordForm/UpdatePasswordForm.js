@@ -5,10 +5,10 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
 function UpdatePasswordForm({ username }) {
-  const [passwordData, setPasswordData] = useState({
-    password:username.password,
-    // newPassword: "",
-    // confirmPassword: "",
+   const [passwordData, setPasswordData] = useState({
+    currentPassword: username.password,
+    newPassword: "",
+    confirmPassword: "",
   });
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -33,10 +33,10 @@ function UpdatePasswordForm({ username }) {
       setPasswordErrorMessage("New password doesn't match the confirmed password.");
       return;
     } 
-    // else if (passwordData.password !== passwordData.currentPassword) {
-    //   setPasswordErrorMessage("Current password iss WROONG");
-    //   return;
-    // }
+    else if (passwordData.currentPassword !== passwordData.currentPassword) {
+      setPasswordErrorMessage("Current password iss WROONG");
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -150,5 +150,5 @@ export default UpdatePasswordForm;
 
 
 
-// Update password does not successfully update yet
+
 // Use Postman
