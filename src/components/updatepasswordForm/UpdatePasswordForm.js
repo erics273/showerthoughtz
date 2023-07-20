@@ -33,10 +33,12 @@ function UpdatePasswordForm({ username }) {
       setPasswordErrorMessage("New password doesn't match the confirmed password.");
       return;
     } 
-    else if (passwordData.currentPassword !== passwordData.currentPassword) {
-      setPasswordErrorMessage("Current password iss WROONG");
-      return;
-    }
+    // ********this is ruining EVERY THING*******
+    // else if (passwordData.currentPassword !== passwordData.currentPassword) {
+    //   setPasswordErrorMessage("Current password iss WROONG");
+    //   return;
+    // }
+    // *********************************************************************
 
     try {
       const response = await fetch(
