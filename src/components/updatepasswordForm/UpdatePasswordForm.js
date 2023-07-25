@@ -12,6 +12,7 @@ function UpdatePasswordForm({ username }) {
   });
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handlePasswordChange = (event) => {
     const { id, value } = event.target;
@@ -62,6 +63,9 @@ function UpdatePasswordForm({ username }) {
         throw new Error("Password update failed.");
       }
 
+      setSuccessMessage("Password updated successfully.");
+
+
       // Clear the password fields
       setPasswordData({
         currentPassword: "",
@@ -85,6 +89,8 @@ function UpdatePasswordForm({ username }) {
       {passwordErrorMessage && (
         <Alert variant="danger">{passwordErrorMessage}</Alert>
       )}
+
+{successMessage && <Alert variant="success">{successMessage}</Alert>}
 
       <h2>Update Password</h2>
 
