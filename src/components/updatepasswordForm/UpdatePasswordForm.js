@@ -166,4 +166,8 @@ export default UpdatePasswordForm;
 
 
 
-// Use Postman
+// Name and bio is not updating in real time
+// Font makes it seem like everything is capslock. Its a problem in the updating
+// clean up thing in the terminal
+
+// remove the "current password"
