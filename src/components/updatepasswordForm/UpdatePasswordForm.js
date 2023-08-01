@@ -1,17 +1,17 @@
-
 import React, { useState } from "react";
 import { generateAuthHeader } from "../../utils/authHelper";
 import { Form, Button, Alert } from "react-bootstrap";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
 function UpdatePasswordForm({ username }) {
-   const [passwordData, setPasswordData] = useState({
-    currentPassword: username.password,
+  const [passwordData, setPasswordData] = useState({
+    // currentPassword: username.password,
     newPassword: "",
-    // confirmPassword: "",
+    confirmPassword: "",
   });
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
-  // const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
 
   const handlePasswordChange = (event) => {
@@ -31,9 +31,11 @@ function UpdatePasswordForm({ username }) {
       setPasswordErrorMessage("You didn't fill out all fields.");
       return;
     } else if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setPasswordErrorMessage("New password doesn't match the confirmed password.");
+      setPasswordErrorMessage(
+        "New password doesn't match the confirmed password."
+      );
       return;
-    } 
+    }
     // ********this is ruining EVERY THING*******
     // else if (passwordData.currentPassword !== passwordData.currentPassword) {
     //   setPasswordErrorMessage("Current password iss WROONG");
@@ -65,14 +67,13 @@ function UpdatePasswordForm({ username }) {
 
       setSuccessMessage("Password updated successfully.");
 
-
       // Clear the password fields
       setPasswordData({
-        currentPassword: "",
+        // currentPassword: "",
         newPassword: "",
-        // confirmPassword: "",
+        confirmPassword: "",
       });
-      
+
       setPasswordErrorMessage(null); // Reset error message on successful update
     } catch (error) {
       console.error(error);
@@ -80,9 +81,13 @@ function UpdatePasswordForm({ username }) {
     }
   };
 
-  // const toggleCurrentPasswordVisibility = () => {
-  //   setShowCurrentPassword((prevState) => !prevState);
-  // };
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword((prevState) => !prevState);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prevState) => !prevState);
+  };
 
   return (
     <div className="UpdatePasswordForm">
@@ -90,62 +95,66 @@ function UpdatePasswordForm({ username }) {
         <Alert variant="danger">{passwordErrorMessage}</Alert>
       )}
 
-{successMessage && <Alert variant="success">{successMessage}</Alert>}
+      {successMessage && <Alert variant="success">{successMessage}</Alert>}
+
+      {/* ************************************************** */}
 
       <h2>Update Password</h2>
-
       <Form>
-        {/* <Form.Group controlId="currentPassword">
-          <Form.Label>Current Password</Form.Label>
+        <Form.Group controlId="newPassword">
+          <Form.Label>New Password</Form.Label>
           <Form.Control
+            className="Ultra"
             onChange={handlePasswordChange}
-            value={passwordData.currentPassword}
-            type={showCurrentPassword ? "text" : "password"}
-            placeholder="Enter your current password"
+            value={passwordData.newPassword}
+            type={showNewPassword ? "text" : "password"}
+            placeholder="Enter your new password"
           />
           <Form.Text
             style={{ cursor: "pointer", fontSize: "90%", opacity: 0.5 }}
           >
-            {showCurrentPassword ? (
+            {showNewPassword ? (
               <BsEyeSlashFill
-                onClick={toggleCurrentPasswordVisibility}
+                onClick={toggleNewPasswordVisibility}
                 style={{ cursor: "pointer", fontSize: "125%" }}
               />
             ) : (
               <BsEyeFill
-                onClick={toggleCurrentPasswordVisibility}
+                onClick={toggleNewPasswordVisibility}
                 style={{ cursor: "pointer", fontSize: "125%" }}
               />
             )}
-            {showCurrentPassword ? "Hide" : "Show"}
+            {showNewPassword ? "Hide" : "Show"}
           </Form.Text>
-        </Form.Group> */}
-{/* ********************************************************* */}
-
-
-
-        <Form.Group controlId="newPassword">
-          <Form.Label>New Password</Form.Label>
-          <Form.Control
-            onChange={handlePasswordChange}
-            value={passwordData.newPassword}
-            type="password"
-            placeholder="Enter your new password"
-          />
         </Form.Group>
 
+        {/* ************************************************** */}
 
-
-
-{/* ******************************************************** */}
         <Form.Group controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
+            className="Ultra"
             onChange={handlePasswordChange}
             value={passwordData.confirmPassword}
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             placeholder="Confirm your new password"
           />
+          <Form.Text
+            style={{ cursor: "pointer", fontSize: "90%", opacity: 0.5 }}
+          >
+            {showConfirmPassword ? (
+              <BsEyeSlashFill
+                onClick={toggleConfirmPasswordVisibility}
+                style={{ cursor: "pointer", fontSize: "125%" }}
+              />
+            ) : (
+              <BsEyeFill
+                onClick={toggleConfirmPasswordVisibility}
+                style={{ cursor: "pointer", fontSize: "125%" }}
+              />
+            )}
+            {showConfirmPassword ? "Hide" : "Show"}
+          </Form.Text>
         </Form.Group>
 
         <Button
@@ -163,11 +172,4 @@ function UpdatePasswordForm({ username }) {
 
 export default UpdatePasswordForm;
 
-
-
-
 // Name and bio is not updating in real time
-// Font makes it seem like everything is capslock. Its a problem in the updating
-// clean up thing in the terminal
-
-// remove the "current password"

@@ -1,23 +1,16 @@
-
-
 import React, { useEffect, useState } from "react";
-import {
-  getUserGravatar,
-  getUserLikes,
-  getUserName,
-  generateAuthHeader,
-} from "../../utils/authHelper";
+import {getUserGravatar,getUserName,generateAuthHeader,} from "../../utils/authHelper";
 import Header from "../../components/header/Header";
 import UpdateForm from "../../components/updateForm/UpdateForm";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
-import { useParams, Link, useLocation } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import mustBeAuthenticated from "../../redux/hoc/mustBeAuthenticated";
 import { isAuthenticated } from "../../utils/authHelper";
 import UpdatePasswordForm from "../../components/updatepasswordForm/UpdatePasswordForm";
 
 const Profile = () => {
   const { username } = useParams();
-  const location = useLocation();
+  // const location = useLocation();
   const [numPosts, setNumPosts] = useState([]);
   const [numLikes, setNumLikes] = useState(0);
   const gravatarUrlProfilePic = getUserGravatar(username);
@@ -26,19 +19,19 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState({});
   const [showUpdatePasswordForm, setShowUpdatePasswordForm] = useState(false);
 
-// ****Form toggles****
+  // ****Form toggles****
   const toggleUpdateForm = () => {
     setShowUpdateForm((prevState) => !prevState);
-    console.log("toggled UpdateForm")
+    console.log("toggled UpdateForm");
   };
 
   const toggleUpdatePasswordForm = () => {
     setShowUpdatePasswordForm((prevState) => !prevState);
-    console.log("toggled UpdatePasswordForm")
+    console.log("toggled UpdatePasswordForm");
   };
-// ****End of Form toggles****
-  
-const getTotalLikes = (posts) => {
+  // ****End of Form toggles****
+
+  const getTotalLikes = (posts) => {
     let totalLikes = 0;
 
     posts.forEach((post) => {
@@ -47,7 +40,6 @@ const getTotalLikes = (posts) => {
 
     return totalLikes;
   };
-
 
   // new auth stuff for Edit profile button
   const isUserAuthenticated = isAuthenticated();
@@ -80,7 +72,6 @@ const getTotalLikes = (posts) => {
     }
   };
 
-
   const getNumUserPosts = async () => {
     try {
       const response = await fetch(
@@ -97,20 +88,18 @@ const getTotalLikes = (posts) => {
         const data = await response.json();
         setNumPosts(data);
         setNumLikes(getTotalLikes(data)); // Calculate the total likes
-      } 
+      }
     } catch (error) {
       console.error("Error:", error);
     }
   };
-  
+
   useEffect(() => {
     getUser();
     getNumUserPosts();
   }, [username]);
 
-
   const isCurrentUser = loggedInUsername === username;
-  
 
   return (
     <>
@@ -142,7 +131,9 @@ const getTotalLikes = (posts) => {
                     Update Password
                   </Button>
                   {showUpdateForm && <UpdateForm userInfo={userInfo} />}
-                  {showUpdatePasswordForm && <UpdatePasswordForm username={username} />}
+                  {showUpdatePasswordForm && (
+                    <UpdatePasswordForm username={username} />
+                  )}
                 </>
               )}
             </Col>
@@ -154,6 +145,3 @@ const getTotalLikes = (posts) => {
 };
 
 export default mustBeAuthenticated(Profile);
-
-
-

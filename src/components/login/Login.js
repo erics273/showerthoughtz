@@ -84,14 +84,14 @@ function Login(props) {
             src={Showerlogin}
             width="100px"
             style={{ marginRight: 10 }}
-            alt="Left Image"
+            alt="Left Pic"
           />
           <span style={{ fontWeight: "bold" }}>Log in</span>
           <img
             src={Showerlogin}
             width="100px"
             style={{ marginLeft: 10 }}
-            alt="Right Image"
+            alt="Right Pic"
           />
         </div>
       </h2>

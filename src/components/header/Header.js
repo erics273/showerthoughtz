@@ -60,7 +60,7 @@ function Header(props) {
           style={{ fontFamily: "Luckiest Guy", fontSize: "50pt",  }}
           to="/"
         >
-          <img src={Showerdude} width="150px" style={{ marginRight: 20 }} />{" "}
+          <img src={Showerdude} width="150px" style={{ marginRight: 20 }}  alt="" />
           ShowerThoughtz
         </Navbar.Brand>
         {/* ****homebutton**** */}

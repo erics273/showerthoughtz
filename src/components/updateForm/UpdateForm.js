@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
-import {
-  generateAuthHeader,
-  getUserGravatar,
-  getUserName,
-} from "../../utils/authHelper";
-import { withRouter, useParams } from "react-router-dom";
+import { generateAuthHeader } from "../../utils/authHelper";
+import { withRouter } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 
-function UpdateForm({ userInfo}) {
-  const username  = userInfo.username;
+function UpdateForm({ userInfo }) {
+  const username = userInfo.username;
   const [errorMessage, setErrorMessage] = useState(null);
   const [formData, setFormData] = useState({
     fullName: userInfo.fullName,
     bio: userInfo.bio,
   });
-  
 
   useEffect(() => {
     setFormData({
@@ -26,6 +21,8 @@ function UpdateForm({ userInfo}) {
   const handleChange = (event) => {
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
+
+    
   };
 
   const handleSubmit = async (event) => {
@@ -51,13 +48,11 @@ function UpdateForm({ userInfo}) {
       // Update the bio state
       userInfo.fullName = formData.fullName;
       userInfo.bio = formData.bio;
-      
     } catch (error) {
       console.error(error);
       setErrorMessage(error.message);
     }
   };
-
 
   return (
     <div className="UpdateForm container">
@@ -70,6 +65,7 @@ function UpdateForm({ userInfo}) {
         <Form.Group controlId="fullName">
           <Form.Label>Full Name</Form.Label>
           <Form.Control
+            className="Ultra"
             onChange={handleChange}
             value={formData.fullName}
             type="text"
@@ -80,6 +76,7 @@ function UpdateForm({ userInfo}) {
         <Form.Group controlId="bio">
           <Form.Label>Bio</Form.Label>
           <Form.Control
+            className="Ultra"
             onChange={handleChange}
             value={formData.bio}
             type="text"
@@ -87,22 +84,17 @@ function UpdateForm({ userInfo}) {
           />
         </Form.Group>
 
-        
-          <Button
-            onClick={handleSubmit}
-            style={{ color: "black" }}
-            variant="primary"
-            type="submit"
-          >
-            Update
-          </Button>
-      
-       
+        <Button
+          onClick={handleSubmit}
+          style={{ color: "black" }}
+          variant="primary"
+          type="submit"
+        >
+           Update
+        </Button>
       </Form>
     </div>
   );
 }
 
 export default withRouter(UpdateForm);
-
-

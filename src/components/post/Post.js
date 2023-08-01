@@ -126,7 +126,7 @@ function Post(props) {
         <Link to={`/profile/${props.thoughtshit.username}`} onClick={handleProfileClick}>
           <img
             style={{ marginLeft: 10, borderRadius: "50%" }}
-            src={gravatarUrl} alt="Profile Picture"
+            src={gravatarUrl} alt="Profile Pic"
           />
         </Link>
       </Card.Header>

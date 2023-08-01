@@ -1,10 +1,9 @@
-import React, { Component,useState } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 
-import { Redirect, withRouter, Link } from "react-router-dom";
-import { FormCheck } from "react-bootstrap";
+import { Redirect, withRouter } from "react-router-dom";
 
 
 
