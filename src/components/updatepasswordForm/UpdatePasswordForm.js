@@ -8,10 +8,10 @@ function UpdatePasswordForm({ username }) {
    const [passwordData, setPasswordData] = useState({
     currentPassword: username.password,
     newPassword: "",
-    confirmPassword: "",
+    // confirmPassword: "",
   });
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  // const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
 
   const handlePasswordChange = (event) => {
@@ -24,7 +24,7 @@ function UpdatePasswordForm({ username }) {
 
     // Perform validation
     if (
-      !passwordData.currentPassword ||
+      // !passwordData.currentPassword ||
       !passwordData.newPassword ||
       !passwordData.confirmPassword
     ) {
@@ -57,7 +57,7 @@ function UpdatePasswordForm({ username }) {
       console.log("Username:", username);
       console.log("Actual password:", passwordData.password);
       console.log("Password data:", passwordData);
-      console.log("Current password:", passwordData.currentPassword);
+      // console.log("Current password:", passwordData.currentPassword);
 
       if (response.status < 200 || response.status > 299) {
         throw new Error("Password update failed.");
@@ -70,7 +70,7 @@ function UpdatePasswordForm({ username }) {
       setPasswordData({
         currentPassword: "",
         newPassword: "",
-        confirmPassword: "",
+        // confirmPassword: "",
       });
       
       setPasswordErrorMessage(null); // Reset error message on successful update
@@ -80,9 +80,9 @@ function UpdatePasswordForm({ username }) {
     }
   };
 
-  const toggleCurrentPasswordVisibility = () => {
-    setShowCurrentPassword((prevState) => !prevState);
-  };
+  // const toggleCurrentPasswordVisibility = () => {
+  //   setShowCurrentPassword((prevState) => !prevState);
+  // };
 
   return (
     <div className="UpdatePasswordForm">
@@ -95,7 +95,7 @@ function UpdatePasswordForm({ username }) {
       <h2>Update Password</h2>
 
       <Form>
-        <Form.Group controlId="currentPassword">
+        {/* <Form.Group controlId="currentPassword">
           <Form.Label>Current Password</Form.Label>
           <Form.Control
             onChange={handlePasswordChange}
@@ -119,7 +119,10 @@ function UpdatePasswordForm({ username }) {
             )}
             {showCurrentPassword ? "Hide" : "Show"}
           </Form.Text>
-        </Form.Group>
+        </Form.Group> */}
+{/* ********************************************************* */}
+
+
 
         <Form.Group controlId="newPassword">
           <Form.Label>New Password</Form.Label>
@@ -131,6 +134,10 @@ function UpdatePasswordForm({ username }) {
           />
         </Form.Group>
 
+
+
+
+{/* ******************************************************** */}
         <Form.Group controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
