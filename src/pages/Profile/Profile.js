@@ -130,7 +130,7 @@ const Profile = () => {
                   <Button onClick={toggleUpdatePasswordForm} variant="primary">
                     Update Password
                   </Button>
-                  {showUpdateForm && <UpdateForm userInfo={userInfo} />}
+                  {showUpdateForm && <UpdateForm userInfo={userInfo} getUser={getUser} />}
                   {showUpdatePasswordForm && (
                     <UpdatePasswordForm username={username} />
                   )}

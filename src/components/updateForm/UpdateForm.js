@@ -3,7 +3,7 @@ import { generateAuthHeader } from "../../utils/authHelper";
 import { withRouter } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 
-function UpdateForm({ userInfo }) {
+function UpdateForm({ userInfo, getUser }) {
   const username = userInfo.username;
   const [errorMessage, setErrorMessage] = useState(null);
   const [formData, setFormData] = useState({
@@ -41,13 +41,15 @@ function UpdateForm({ userInfo }) {
         }
       );
 
+
       if (response.status < 200 || response.status > 299) {
         throw Error(response.statusText);
       }
 
       // Update the bio state
-      userInfo.fullName = formData.fullName;
-      userInfo.bio = formData.bio;
+      // userInfo.fullName = formData.fullName;
+      // userInfo.bio = formData.bio;
+      getUser()
     } catch (error) {
       console.error(error);
       setErrorMessage(error.message);

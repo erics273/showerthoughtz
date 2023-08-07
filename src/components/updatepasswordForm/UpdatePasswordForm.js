@@ -173,3 +173,4 @@ function UpdatePasswordForm({ username }) {
 export default UpdatePasswordForm;
 
 // Name and bio is not updating in real time
+//  double toggle issue in update form
