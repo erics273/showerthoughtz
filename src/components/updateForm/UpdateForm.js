@@ -11,12 +11,12 @@ function UpdateForm({ userInfo, getUser }) {
     bio: userInfo.bio,
   });
 
-  useEffect(() => {
-    setFormData({
-      fullName: userInfo.fullName,
-      bio: userInfo.bio,
-    });
-  }, [userInfo]);
+  // useEffect(() => {
+  //   setFormData({
+  //     fullName: userInfo.fullName,
+  //     bio: userInfo.bio,
+  //   });
+  // }, [userInfo.fullName, userInfo.bio]);
 
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -27,6 +27,20 @@ function UpdateForm({ userInfo, getUser }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+
+
+      // Check if any of the form fields are empty
+    if (!formData.fullName || !formData.bio) {
+      setErrorMessage("You didn't type anything");
+      return;
+    }
+
+    // Check if the form data is unchanged
+    if (formData.fullName === userInfo.fullName && formData.bio === userInfo.bio) {
+      setErrorMessage("No change detected.");
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -46,6 +60,8 @@ function UpdateForm({ userInfo, getUser }) {
         throw Error(response.statusText);
       }
 
+      setErrorMessage(null);
+
       // Update the bio state
       // userInfo.fullName = formData.fullName;
       // userInfo.bio = formData.bio;
@@ -55,7 +71,14 @@ function UpdateForm({ userInfo, getUser }) {
       setErrorMessage(error.message);
     }
   };
+  
 
+  useEffect(() => {
+    setFormData({
+      fullName: userInfo.fullName,
+      bio: userInfo.bio,
+    });
+  }, [userInfo.fullName, userInfo.bio]);
   return (
     <div className="UpdateForm container">
       {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
