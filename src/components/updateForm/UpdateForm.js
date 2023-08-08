@@ -11,33 +11,25 @@ function UpdateForm({ userInfo, getUser }) {
     bio: userInfo.bio,
   });
 
-  // useEffect(() => {
-  //   setFormData({
-  //     fullName: userInfo.fullName,
-  //     bio: userInfo.bio,
-  //   });
-  // }, [userInfo.fullName, userInfo.bio]);
-
   const handleChange = (event) => {
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
-
-    
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-
-
-      // Check if any of the form fields are empty
+    // Check if any of the form fields are empty
     if (!formData.fullName || !formData.bio) {
       setErrorMessage("You didn't type anything");
       return;
     }
 
     // Check if the form data is unchanged
-    if (formData.fullName === userInfo.fullName && formData.bio === userInfo.bio) {
+    if (
+      formData.fullName === userInfo.fullName &&
+      formData.bio === userInfo.bio
+    ) {
       setErrorMessage("No change detected.");
       return;
     }
@@ -55,7 +47,6 @@ function UpdateForm({ userInfo, getUser }) {
         }
       );
 
-
       if (response.status < 200 || response.status > 299) {
         throw Error(response.statusText);
       }
@@ -65,13 +56,12 @@ function UpdateForm({ userInfo, getUser }) {
       // Update the bio state
       // userInfo.fullName = formData.fullName;
       // userInfo.bio = formData.bio;
-      getUser()
+      getUser();
     } catch (error) {
       console.error(error);
       setErrorMessage(error.message);
     }
   };
-  
 
   useEffect(() => {
     setFormData({
@@ -80,7 +70,7 @@ function UpdateForm({ userInfo, getUser }) {
     });
   }, [userInfo.fullName, userInfo.bio]);
   return (
-    <div className="UpdateForm container">
+    <div className="AltLuckyguy">
       {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 
       <p></p>
@@ -115,10 +105,11 @@ function UpdateForm({ userInfo, getUser }) {
           variant="primary"
           type="submit"
         >
-           Update
+          Update
         </Button>
       </Form>
     </div>
+   
   );
 }
 

@@ -7,27 +7,33 @@ import { useParams} from "react-router-dom";
 import mustBeAuthenticated from "../../redux/hoc/mustBeAuthenticated";
 import { isAuthenticated } from "../../utils/authHelper";
 import UpdatePasswordForm from "../../components/updatepasswordForm/UpdatePasswordForm";
+import stBackground from "../../logos/stBackground.jpg" 
+
 
 const Profile = () => {
   const { username } = useParams();
-  // const location = useLocation();
   const [numPosts, setNumPosts] = useState([]);
   const [numLikes, setNumLikes] = useState(0);
   const gravatarUrlProfilePic = getUserGravatar(username);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-  // const [userBio, setBio] = useState("");
   const [userInfo, setUserInfo] = useState({});
   const [showUpdatePasswordForm, setShowUpdatePasswordForm] = useState(false);
+  
 
-  // ****Form toggles****
+  
   const toggleUpdateForm = () => {
-    setShowUpdateForm((prevState) => !prevState);
-    console.log("toggled UpdateForm");
+    setShowUpdateForm((prevState) => {
+      setShowUpdatePasswordForm(false); // Close password form when opening update form
+      return !prevState;
+    });
   };
 
+  
   const toggleUpdatePasswordForm = () => {
-    setShowUpdatePasswordForm((prevState) => !prevState);
-    console.log("toggled UpdatePasswordForm");
+    setShowUpdatePasswordForm((prevState) => {
+      setShowUpdateForm(false); // Close update form when opening password form
+      return !prevState;
+    });
   };
   // ****End of Form toggles****
 
@@ -102,10 +108,29 @@ const Profile = () => {
   const isCurrentUser = loggedInUsername === username;
 
   return (
-    <>
+<div className="App">
+<div
+  className="Background"
+  style={{
+    backgroundImage: `url(${stBackground})`,
+    backgroundPosition: "center center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundAttachment: "fixed",
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: -1,
+  }}
+>
+  
+</div>
+
       <Header isAuthenticated={isUserAuthenticated} />
 
-      <div className="d-flex justify-content-center">
+       <div className="AltLuckyguy">
         <Container className="mt-3" style={{ textAlign: "center" }}>
           <Row>
             <Col md={4}>
@@ -140,7 +165,7 @@ const Profile = () => {
           </Row>
         </Container>
       </div>
-    </>
+    </div>
   );
 };
 

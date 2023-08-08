@@ -3,6 +3,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
 
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -15,6 +16,13 @@ code {
   
 }
 
+.AltLuckyguy {
+  margin-bottom: 20px;
+  font-family: "Luckiest Guy";
+  font-size: 20pt;
+  color: black;
+  text-shadow: 2px 2px 2px white; 
+}
 
 .Ultra{
    font-family: 'Marcellus';
